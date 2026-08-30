@@ -6,127 +6,126 @@
     <title>App Currency & Coins Packages - Geni AI Global Hub</title>
 
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f4f6f8; color: #333; }
-        .container { max-width: 1000px; margin: auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-links { margin-bottom: 20px; font-size: 14px; }
+        body { font-family: Arial, sans-serif; line-height: 1.5; margin: 0; padding: 10px; background: #f4f6f8; color: #333; }
+        .container { max-width: 1000px; margin: auto; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .nav-links { margin-bottom: 15px; font-size: 13px; text-align: center; }
         .nav-links a { color: #0284c7; text-decoration: none; font-weight: bold; }
         .nav-links a:hover { text-decoration: underline; }
         
         .intro-box { 
             background: #eef2f3; 
-            padding: 18px; 
+            padding: 12px; 
             border-left: 5px solid #0284c7; 
             border-radius: 6px; 
-            margin-bottom: 25px; 
-            font-size: 15px;
+            margin-bottom: 20px; 
+            font-size: 13px;
         }
 
         .system-title {
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #111;
-            margin: 10px 0 5px 0;
+            margin: 5px 0 2px 0;
         }
         .system-subtitle {
             text-align: center;
             color: #555;
-            font-size: 14px;
-            margin-bottom: 30px;
+            font-size: 12px;
+            margin-bottom: 20px;
         }
 
-        /* Store Layout: Two Columns with divider */
+        /* Store Layout: Two Columns side-by-side even on mobile */
         .store-grid {
             display: grid;
-            grid-template-columns: 1fr 1px 1fr;
-            gap: 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
             align-items: start;
-        }
-
-        .divider {
-            background: #e2e8f0;
-            width: 1px;
-            margin: 0 15px;
-            min-height: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .store-grid { 
-                grid-template-columns: 1fr; 
-            }
-            .divider { display: none; }
         }
 
         .store-column-title {
             text-align: center;
-            font-size: 22px;
+            font-size: 16px;
             font-weight: bold;
             color: #111;
-            margin-bottom: 18px;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #ddd;
+            background: #f8fafc;
+            border-radius: 4px;
         }
 
         /* Package Card */
         .pack-card {
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px 18px;
-            margin-bottom: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            text-align: center;
         }
 
-        .pack-info h3 { margin: 0 0 4px 0; font-size: 17px; color: #111; }
+        .pack-info h3 { margin: 0 0 2px 0; font-size: 14px; color: #111; }
         .badge { 
             display: inline-block; 
-            padding: 2px 8px; 
+            padding: 1px 5px; 
             background: #f1f5f9; 
             border: 1px solid #cbd5e1; 
-            border-radius: 4px; 
-            font-size: 11px; 
+            border-radius: 3px; 
+            font-size: 10px; 
             font-weight: bold; 
             color: #475569; 
-            margin-bottom: 6px; 
+            margin-bottom: 4px; 
             text-transform: uppercase; 
         }
-        .pack-details { font-size: 15px; font-weight: bold; color: #0f172a; margin: 2px 0; }
-        .bonus-text-coins { font-size: 13px; color: #dc2626; font-weight: bold; }
-        .bonus-text-currency { font-size: 13px; color: #0284c7; font-weight: bold; }
-        .total-text { font-size: 13px; color: #334155; margin-top: 2px; }
+        .pack-details { font-size: 12px; font-weight: bold; color: #0f172a; margin: 2px 0; }
+        .bonus-text-coins { font-size: 11px; color: #dc2626; font-weight: bold; }
+        .bonus-text-currency { font-size: 11px; color: #0284c7; font-weight: bold; }
+        .total-text { font-size: 11px; color: #334155; margin-top: 2px; }
 
         /* Price Box */
         .price-box {
             background: #111;
             color: #fff;
-            padding: 10px 16px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 6px;
             text-align: center;
-            min-width: 95px;
+            margin-top: 6px;
         }
-        .price-usd { font-size: 16px; font-weight: bold; display: block; }
-        .price-pkr { font-size: 12px; color: #cbd5e1; display: block; margin-top: 2px; }
+        .price-usd { font-size: 12px; font-weight: bold; display: block; }
+        .price-pkr { font-size: 10px; color: #cbd5e1; display: block; }
+        
+        .buy-btn {
+            display: block;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            margin-top: 5px;
+            text-decoration: none;
+        }
 
         .note-box {
             background: #f0f9ff;
             border: 1px solid #bae6fd;
-            padding: 16px;
+            padding: 12px;
             border-radius: 8px;
-            margin-top: 30px;
-            font-size: 14px;
+            margin-top: 20px;
+            font-size: 12px;
             color: #0c4a6e;
         }
 
         footer { 
             background: #111; 
             color: #fff; 
-            padding: 20px; 
+            padding: 15px; 
             text-align: center; 
-            margin-top: 40px; 
-            font-size: 14px; 
+            margin-top: 25px; 
+            font-size: 12px; 
             border-radius: 8px; 
         }
     </style>
@@ -134,26 +133,26 @@
 <body>
 
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 5px;">App Currency & Coins Packages</h1>
+        <h1 style="text-align: center; margin-bottom: 5px; font-size: 22px;">App Currency & Coins Packages</h1>
         
-        <div class="nav-links" style="text-align: center;">
+        <div class="nav-links">
             <a href="index.html">← Back to Home</a> &nbsp;|&nbsp;
             <a href="business-model.html">Business Model</a> &nbsp;|&nbsp;
             <a href="contact.html">Contact Us</a>
         </div>
 
         <div class="intro-box">
-            <strong>How it works:</strong> Users from Pakistan (in PKR) or any other country (via automated currency conversion) can purchase real amount packages. In return, we provide them <strong>AI Coins</strong> and <strong>App Currency</strong>, which users can spend inside the app to generate AI images, videos, audio, and voice content. There are no subscription plans — only one-time credit packages.
+            <strong>How it works:</strong> Users can purchase digital credit packages as one-time top-ups. We offer two separate systems: <strong>AI Coins</strong> (for video generation) and <strong>App Currency</strong> (for image generation). No recurring subscriptions.
         </div>
 
-        <div class="system-title">Coins & Currency System</div>
-        <div class="system-subtitle">Two separate digital credit systems for different AI features</div>
+        <div class="system-title">Coins & Currency Store</div>
+        <div class="system-subtitle">Amne Samne (Side-by-Side) Comparison View</div>
 
         <div class="store-grid">
             
             <!-- COINS COLUMN -->
             <div>
-                <div class="store-column-title">AI Coins</div>
+                <div class="store-column-title">Coins</div>
 
                 <div class="pack-card">
                     <div class="pack-info">
@@ -164,9 +163,9 @@
                         <div class="total-text">Total: 100</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$1.00</span>
-                        <span class="price-pkr">PKR 280</span>
+                        <span class="price-usd">$1.00 / PKR 280</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -178,9 +177,9 @@
                         <div class="total-text">Total: 330</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$3.00</span>
-                        <span class="price-pkr">PKR 840</span>
+                        <span class="price-usd">$3.00 / PKR 840</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -192,9 +191,9 @@
                         <div class="total-text">Total: 880</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$8.00</span>
-                        <span class="price-pkr">PKR 2240</span>
+                        <span class="price-usd">$8.00 / PKR 2240</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -206,9 +205,9 @@
                         <div class="total-text">Total: 1680</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$15.00</span>
-                        <span class="price-pkr">PKR 4200</span>
+                        <span class="price-usd">$15.00 / PKR 4200</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -220,18 +219,15 @@
                         <div class="total-text">Total: 2800</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$25.00</span>
-                        <span class="price-pkr">PKR 7000</span>
+                        <span class="price-usd">$25.00 / PKR 7000</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
             </div>
 
-            <!-- DIVIDER -->
-            <div class="divider"></div>
-
             <!-- CURRENCY COLUMN -->
             <div>
-                <div class="store-column-title">App Currency</div>
+                <div class="store-column-title">Currency</div>
 
                 <div class="pack-card">
                     <div class="pack-info">
@@ -242,9 +238,9 @@
                         <div class="total-text">Total: 500</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$1.00</span>
-                        <span class="price-pkr">PKR 280</span>
+                        <span class="price-usd">$1.00 / PKR 280</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -256,9 +252,9 @@
                         <div class="total-text">Total: 1550</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$3.00</span>
-                        <span class="price-pkr">PKR 840</span>
+                        <span class="price-usd">$3.00 / PKR 840</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -270,9 +266,9 @@
                         <div class="total-text">Total: 4150</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$8.00</span>
-                        <span class="price-pkr">PKR 2240</span>
+                        <span class="price-usd">$8.00 / PKR 2240</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -284,9 +280,9 @@
                         <div class="total-text">Total: 7800</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$15.00</span>
-                        <span class="price-pkr">PKR 4200</span>
+                        <span class="price-usd">$15.00 / PKR 4200</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
 
                 <div class="pack-card">
@@ -298,9 +294,9 @@
                         <div class="total-text">Total: 13000</div>
                     </div>
                     <div class="price-box">
-                        <span class="price-usd">$25.00</span>
-                        <span class="price-pkr">PKR 7000</span>
+                        <span class="price-usd">$25.00 / PKR 7000</span>
                     </div>
+                    <a href="#" class="buy-btn">Buy</a>
                 </div>
             </div>
 
@@ -308,17 +304,14 @@
 
         <div class="note-box">
             <strong>Important Notes:</strong><br>
-            • AI Coins are mainly used for video generation and related features.<br>
-            • App Currency is mainly used for image generation and related features.<br>
-            • All prices are shown in both USD and PKR. Local users see PKR amounts; international users are charged the equivalent USD amount with automatic conversion.<br>
-            • There are no subscription plans. Customers only purchase one-time digital credit packages.
+            • AI Coins are used for video features; App Currency is used for image features.<br>
+            • No subscriptions; all packages are one-time purchases.
         </div>
 
-        <div style="margin-top: 35px; text-align: center;">
-            <h3>Official Documentation</h3>
+        <div style="margin-top: 25px; text-align: center;">
             <p>
                 <a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf" target="_blank" 
-                   style="padding: 12px 22px; background: #0284c7; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+                   style="padding: 10px 18px; background: #0284c7; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 13px;">
                    View Business Model & Pricing PDF
                 </a>
             </p>
@@ -328,8 +321,7 @@
     <footer>
         <p><strong>Geni AI Global Hub</strong></p>
         <p>Email: basmallahnoor@gmail.com | Phone: 0340-0059322</p>
-        <p>Near Grid Station, Choa Saidan Shah, Punjab, Pakistan</p>
-        <p style="margin-top: 8px; font-size: 12px; color: #aaa;">Owner: Wasia Bashir | Father’s Name: Muhammad Bashir</p>
+        <p>Choa Saidan Shah, Punjab, Pakistan</p>
     </footer>
 
 </body>
