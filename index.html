@@ -6,215 +6,35 @@
     <title>Geni AI Global Hub - Home</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background: #f9f9f9;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Thumbnail styling for logo */
-        .logo-container img {
-            max-width: 100px;
-            height: auto;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
-
-        h1, h2, h3 {
-            color: #2c3e50;
-            text-align: center;
-        }
-
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f9f9f9; color: #333; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { max-width: 100px; height: auto; border-radius: 6px; border: 1px solid #ddd; }
+        h1, h2, h3 { color: #2c3e50; text-align: center; }
         h1 { margin-top: 10px; }
-
-        ul {
-            line-height: 1.8;
-        }
-
-        .section {
-            margin: 30px 0;
-        }
-
-        .business-box {
-            background: #f0f9ff;
-            border-left: 5px solid #0284c7;
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 6px;
-        }
-
-        .business-box h2 {
-            margin-top: 0;
-            text-align: left;
-        }
-
-        .use-case-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 6px;
-        }
-
-        .use-case-box h3 {
-            margin-top: 0;
-            text-align: left;
-        }
-
-        .payment-box {
-            background: #ecfdf5;
-            border-left: 5px solid #16a34a;
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 6px;
-        }
-
-        .payment-box h3 {
-            margin-top: 0;
-            text-align: left;
-        }
-
-        .delivery-box {
-            background: #fff7ed;
-            border-left: 5px solid #f97316;
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 6px;
-        }
-
-        .delivery-box h3 {
-            margin-top: 0;
-            text-align: left;
-        }
-
-        /* Screenshot Gallery with Click-to-Zoom */
-        .screenshot-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .screenshot-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .screenshot-card img {
-            width: 100%;
-            max-height: 180px;
-            object-fit: contain;
-            border-radius: 6px;
-            border: 1px solid #eee;
-            background: #000;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .screenshot-card img:hover {
-            transform: scale(1.03);
-        }
-
-        .screenshot-card p {
-            font-size: 13px;
-            color: #555;
-            margin-top: 8px;
-            font-weight: bold;
-        }
-
-        .pdf-box {
-            background: #eef2f3;
-            padding: 20px;
-            border-left: 4px solid #0284c7;
-            margin: 25px 0;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .pdf-box a {
-            padding: 12px 24px;
-            background: #0284c7;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .pdf-box a:hover {
-            opacity: 0.9;
-        }
-
-        .nav-links {
-            margin-top: 35px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .nav-links a {
-            display: block;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: #0284c7;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .nav-links a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            background: #111;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            border-radius: 8px;
-        }
-
-        .highlight {
-            font-weight: bold;
-        }
+        .screenshot-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 30px 0; }
+        .screenshot-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .screenshot-card img { width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; border: 1px solid #eee; background: #000; }
+        .screenshot-card p { font-size: 13px; color: #555; margin-top: 8px; font-weight: bold; }
+        .business-box { background: #f0f9ff; border-left: 5px solid #0284c7; padding: 22px; margin: 25px 0; border-radius: 6px; }
+        .use-case-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; margin: 25px 0; border-radius: 6px; }
+        .payment-box { background: #ecfdf5; border-left: 5px solid #16a34a; padding: 22px; margin: 25px 0; border-radius: 6px; }
+        .delivery-box { background: #fff7ed; border-left: 5px solid #f97316; padding: 22px; margin: 25px 0; border-radius: 6px; }
+        .pdf-box { background: #eef2f3; padding: 20px; border-left: 4px solid #0284c7; margin: 25px 0; border-radius: 4px; text-align: center; }
+        .pdf-box a, .nav-links a { color: #0284c7; font-weight: bold; text-decoration: none; }
+        .nav-links { margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
+        .nav-links a { display: block; margin-bottom: 10px; }
+        footer { background: #111; color: #fff; padding: 20px; text-align: center; margin-top: 40px; font-size: 14px; border-radius: 8px; }
+        .highlight { font-weight: bold; }
     </style>
 </head>
-
 <body>
 
 <div class="container">
 
-    <!-- LOGO SECTION (Clickable to view full size) -->
     <div class="logo-container">
-        <a href="18125.jpg" target="_blank">
-            <img src="18125.jpg" alt="Geni AI Global Hub Logo" title="Click to view full size">
+        <a href="Screenshot_20260830-093901.jpg" target="_blank">
+            <img src="Screenshot_20260830-093901.jpg" alt="Geni AI Global Hub Logo">
         </a>
         <h1>Geni AI Global Hub</h1>
         <p style="color: #666; font-style: italic;">"Your Creative Command"</p>
@@ -224,101 +44,69 @@
         Welcome to Geni AI Global Hub, a digital platform providing multi-modal artificial intelligence tools and creative digital services for customers.
     </p>
 
-
-    <!-- APP INTERFACE & PLATFORM PREVIEW -->
     <div class="section">
         <h2>App Interface & Platform Preview</h2>
         <p style="text-align: center; color: #555; font-size: 14px;">Click on any preview image below to view it in full size:</p>
         
         <div class="screenshot-gallery">
             <div class="screenshot-card">
-                <a href="18135.jpg" target="_blank">
-                    <img src="18135.jpg" alt="App Home Dashboard" title="Click to expand">
+                <a href="Screenshot_20260830-093912.jpg" target="_blank">
+                    <img src="Screenshot_20260830-093912.jpg" alt="App Home Dashboard">
                 </a>
                 <p>App Home Dashboard</p>
             </div>
             <div class="screenshot-card">
-                <a href="18134.jpg" target="_blank">
-                    <img src="18134.jpg" alt="AI Image Generation Studio" title="Click to expand">
+                <a href="Screenshot_20260830-094109.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094109.jpg" alt="AI Image Generation Studio">
                 </a>
                 <p>AI Image Generation Studio</p>
             </div>
             <div class="screenshot-card">
-                <a href="18136.jpg" target="_blank">
-                    <img src="18136.jpg" alt="Geni Audio & Voice Library" title="Click to expand">
+                <a href="Screenshot_20260830-094345.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094345.jpg" alt="Audio & Voice Library">
                 </a>
                 <p>Audio & Voice Library</p>
             </div>
         </div>
     </div>
 
-
-    <!-- BUSINESS MODEL -->
     <div class="business-box">
         <h2>Business Model & Payment Gateway Use Case</h2>
         <p>Geni AI Global Hub is a digital artificial intelligence platform that provides AI-powered creative generation services. Customers can use our digital tools to create AI-generated images, videos, audio, voice content, and other creative digital outputs.</p>
-        <p>Our business operates through a <span class="highlight">digital credit and service model</span>. Customers purchase available digital credit/coin packages or applicable subscription services and use those credits within the platform to access AI-powered generation features.</p>
-        <p><span class="highlight">The intended use of the payment gateway is to accept customer payments for our digital AI services, digital credit/coin packages, and applicable digital subscriptions.</span></p>
-        <p>Payments made through Rapid Gateway are therefore directly related to the purchase and use of Geni AI Global Hub's digital AI services. No physical products are sold through this platform.</p>
+        <p>Our business operates through a <span class="highlight">digital credit model</span>. Customers purchase available digital credit packages (AI Coins and App Currency) and use those credits within the platform to access AI-powered generation features.</p>
+        <p><span class="highlight">The intended use of the payment gateway is to accept customer payments for our digital AI services and digital credit packages (AI Coins and App Currency).</span></p>
+        <p>There are no subscription plans. Customers only purchase one-time credit packages.</p>
     </div>
 
-
-    <!-- CUSTOMER USE CASE -->
     <div class="use-case-box">
-        <h3>How Customers Use Our Platform</h3>
+        <h3>How Customers Use Our Platform (Complete Customer Journey)</h3>
         <ol>
-            <li>Customers visit Geni AI Global Hub and select an available AI service or digital credit package.</li>
-            <li>Customers select their preferred payment option at checkout.</li>
+            <li>Customers visit Geni AI Global Hub and browse available AI services and digital credit packages (AI Coins and App Currency).</li>
+            <li>Customers select the desired credit package.</li>
+            <li>Customers proceed to checkout and select their preferred payment option.</li>
             <li>Payment is processed through the available payment gateway, including Rapid Gateway where applicable.</li>
-            <li>After successful payment confirmation, the purchased digital credits, coins, subscription, or applicable digital service is made available to the customer's account.</li>
-            <li>Customers use their purchased credits or service access to generate AI-powered digital content through the platform.</li>
+            <li>After successful payment confirmation, the purchased digital credits (AI Coins or App Currency) are instantly credited to the customer’s account wallet.</li>
+            <li>Customers use their purchased credits inside the platform to generate AI images, videos, audio, or voice content.</li>
+            <li>Generated content is delivered digitally and made available inside the customer’s account dashboard.</li>
         </ol>
     </div>
 
-
-    <!-- PAYMENT GATEWAY -->
     <div class="payment-box">
         <h3>Payment Gateway Purpose</h3>
-        <p>Rapid Gateway is used as a payment processing method for customer purchases on Geni AI Global Hub.</p>
-        <p>The gateway is intended for payments related to our <span class="highlight">AI digital services, digital credits/coins, and applicable subscription services</span>.</p>
-        <p>Customers do not purchase physical merchandise through Rapid Gateway. Payments are for digital services and digital products provided through the Geni AI Global Hub platform.</p>
+        <p>Rapid Gateway is used as a payment processing method for customer purchases on Geni AI Global Hub. The gateway is intended solely for payments related to our digital AI services and digital credit packages (AI Coins and App Currency).</p>
+        <p>No physical products are sold. All payments are for digital credits only.</p>
     </div>
 
-
-    <!-- DIGITAL DELIVERY -->
     <div class="delivery-box">
         <h3>Digital Delivery</h3>
-        <p>Geni AI Global Hub provides digital services only. There is no physical shipping or physical product delivery.</p>
-        <p>Following successful payment confirmation, purchased credits, coins, subscriptions, or applicable digital services are delivered electronically through the customer's Geni AI Global Hub account.</p>
-        <p>AI-generated content is produced digitally through the platform and is made available to the customer through their account or applicable digital service interface.</p>
+        <p>Geni AI Global Hub provides digital services only. There is no physical shipping or physical product delivery. Purchased credits are delivered electronically and instantly to the customer’s account after successful payment confirmation.</p>
     </div>
 
-
-    <!-- SERVICES -->
-    <div class="section">
-        <h2>Our Digital AI Services</h2>
-        <ul style="max-width: 400px; margin: auto;">
-            <li>AI Image Generation</li>
-            <li>AI Video Generation</li>
-            <li>Text to Image</li>
-            <li>Image to Video</li>
-            <li>Text to Video</li>
-            <li>AI Audio Generation</li>
-            <li>AI Voice Generation</li>
-            <li>Creative AI Tools</li>
-        </ul>
-    </div>
-
-
-    <!-- BUSINESS DOCUMENT -->
     <div class="pdf-box">
         <h3>Official Business Model & Pricing Documentation</h3>
-        <p>For additional information about our business operations, pricing packages, digital services, customer journey, and delivery model, please review our official document.</p>
-        <a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf" target="_blank">View / Download Official PDF</a>
+        <p><a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf" target="_blank" style="padding: 10px 18px; background: #0284c7; color: #fff; border-radius: 5px; display: inline-block;">View / Download Official PDF</a></p>
     </div>
 
-
-    <!-- QUICK LINKS -->
     <div class="nav-links">
         <h3>Quick Links & Policies</h3>
         <a href="business-model.html">→ Business Model & Use Case</a>
@@ -326,20 +114,18 @@
         <a href="privacy.html">→ Privacy Policy</a>
         <a href="terms.html">→ Terms and Conditions</a>
         <a href="refund.html">→ Refund Policy</a>
-        <a href="shipping.html">→ Shipping Policy</a>
+        <a href="shipping.html">→ Shipping & Delivery Policy</a>
         <a href="contact.html">→ Contact Us</a>
         <a href="ownership.html">→ Ownership Statement</a>
     </div>
 
 </div>
 
-
 <footer>
     <p><strong>Geni AI Global Hub</strong></p>
     <p>Email: basmallahnoor@gmail.com | Phone: 0340-0059322</p>
-    <p>Address: Near grid station, Choa S. Shah, C.S. Shah</p>
-    <p style="margin-top: 8px; font-size: 12px; color: #aaa;">Owner: Wasia Bashir (D/O Muhammad Bashir)</p>
-    <p style="margin-top: 5px; font-size: 12px; color: #aaa;">Business Address matches official utility billing documents.</p>
+    <p>Owner: Wasia Bashir | Father’s Name: Muhammad Bashir</p>
+    <p>Near Grid Station, Choa Saidan Shah, Punjab, Pakistan</p>
 </footer>
 
 </body>
