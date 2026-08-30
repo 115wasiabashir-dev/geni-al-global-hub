@@ -24,9 +24,22 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            max-width: 120px;
+            height: auto;
+        }
+
         h1, h2, h3 {
             color: #2c3e50;
+            text-align: center;
         }
+
+        h1 { margin-top: 10px; }
 
         ul {
             line-height: 1.8;
@@ -46,6 +59,7 @@
 
         .business-box h2 {
             margin-top: 0;
+            text-align: left;
         }
 
         .business-box p {
@@ -62,6 +76,7 @@
 
         .use-case-box h3 {
             margin-top: 0;
+            text-align: left;
         }
 
         .payment-box {
@@ -74,6 +89,7 @@
 
         .payment-box h3 {
             margin-top: 0;
+            text-align: left;
         }
 
         .delivery-box {
@@ -86,6 +102,38 @@
 
         .delivery-box h3 {
             margin-top: 0;
+            text-align: left;
+        }
+
+        /* Screenshot Showcase Styling */
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .screenshot-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .screenshot-card p {
+            font-size: 13px;
+            color: #555;
+            margin-top: 8px;
+            font-weight: bold;
         }
 
         .pdf-box {
@@ -150,13 +198,38 @@
 
 <div class="container">
 
-    <h1>Geni AI Global Hub</h1>
+    <!-- LOGO SECTION -->
+    <div class="logo-container">
+        <img src="18125.jpg" alt="Geni AI Global Hub Logo">
+        <h1>Geni AI Global Hub</h1>
+        <p style="color: #666; font-style: italic;">"Your Creative Command"</p>
+    </div>
 
-    <p>
-        Welcome to Geni AI Global Hub, a digital platform providing
-        multi-modal artificial intelligence tools and creative digital
-        services for customers.
+    <p style="text-align: center;">
+        Welcome to Geni AI Global Hub, a digital platform providing multi-modal artificial intelligence tools and creative digital services for customers.
     </p>
+
+
+    <!-- APP INTERFACE & PLATFORM PREVIEW -->
+    <div class="section">
+        <h2>App Interface & Platform Preview</h2>
+        <p style="text-align: center; color: #555; font-size: 14px;">Here is a quick look at our live application interface, featuring our core AI generation tools and dashboard:</p>
+        
+        <div class="screenshot-gallery">
+            <div class="screenshot-card">
+                <img src="18135.jpg" alt="App Home Dashboard">
+                <p>App Home Dashboard</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="18134.jpg" alt="AI Image Generation Studio">
+                <p>AI Image Generation Studio</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="18136.jpg" alt="Geni Audio & Voice Library">
+                <p>Audio & Voice Library</p>
+            </div>
+        </div>
+    </div>
 
 
     <!-- BUSINESS MODEL -->
@@ -165,32 +238,19 @@
         <h2>Business Model & Payment Gateway Use Case</h2>
 
         <p>
-            Geni AI Global Hub is a digital artificial intelligence platform
-            that provides AI-powered creative generation services. Customers
-            can use our digital tools to create AI-generated images, videos,
-            audio, voice content, and other creative digital outputs.
+            Geni AI Global Hub is a digital artificial intelligence platform that provides AI-powered creative generation services. Customers can use our digital tools to create AI-generated images, videos, audio, voice content, and other creative digital outputs.
         </p>
 
         <p>
-            Our business operates through a <span class="highlight">
-            digital credit and service model</span>. Customers purchase
-            available digital credit/coin packages or applicable subscription
-            services and use those credits within the platform to access
-            AI-powered generation features.
+            Our business operates through a <span class="highlight">digital credit and service model</span>. Customers purchase available digital credit/coin packages or applicable subscription services and use those credits within the platform to access AI-powered generation features.
         </p>
 
         <p>
-            <span class="highlight">The intended use of the payment gateway
-            is to accept customer payments for our digital AI services,
-            digital credit/coin packages, and applicable digital
-            subscriptions.</span>
+            <span class="highlight">The intended use of the payment gateway is to accept customer payments for our digital AI services, digital credit/coin packages, and applicable digital subscriptions.</span>
         </p>
 
         <p>
-            Payments made through Rapid Gateway are therefore directly
-            related to the purchase and use of Geni AI Global Hub's
-            digital AI services. No physical products are sold through
-            this platform.
+            Payments made through Rapid Gateway are therefore directly related to the purchase and use of Geni AI Global Hub's digital AI services. No physical products are sold through this platform.
         </p>
 
     </div>
@@ -203,13 +263,9 @@
 
         <ol>
             <li>Customers visit Geni AI Global Hub and select an available AI service or digital credit package.</li>
-
             <li>Customers select their preferred payment option at checkout.</li>
-
             <li>Payment is processed through the available payment gateway, including Rapid Gateway where applicable.</li>
-
             <li>After successful payment confirmation, the purchased digital credits, coins, subscription, or applicable digital service is made available to the customer's account.</li>
-
             <li>Customers use their purchased credits or service access to generate AI-powered digital content through the platform.</li>
         </ol>
 
@@ -222,22 +278,15 @@
         <h3>Payment Gateway Purpose</h3>
 
         <p>
-            Rapid Gateway is used as a payment processing method for
-            customer purchases on Geni AI Global Hub.
+            Rapid Gateway is used as a payment processing method for customer purchases on Geni AI Global Hub.
         </p>
 
         <p>
-            The gateway is intended for payments related to our
-            <span class="highlight">
-            AI digital services, digital credits/coins, and applicable
-            subscription services</span>.
+            The gateway is intended for payments related to our <span class="highlight">AI digital services, digital credits/coins, and applicable subscription services</span>.
         </p>
 
         <p>
-            Customers do not purchase physical merchandise through
-            Rapid Gateway. Payments are for digital services and
-            digital products provided through the Geni AI Global Hub
-            platform.
+            Customers do not purchase physical merchandise through Rapid Gateway. Payments are for digital services and digital products provided through the Geni AI Global Hub platform.
         </p>
 
     </div>
@@ -249,21 +298,15 @@
         <h3>Digital Delivery</h3>
 
         <p>
-            Geni AI Global Hub provides digital services only.
-            There is no physical shipping or physical product delivery.
+            Geni AI Global Hub provides digital services only. There is no physical shipping or physical product delivery.
         </p>
 
         <p>
-            Following successful payment confirmation, purchased
-            credits, coins, subscriptions, or applicable digital
-            services are delivered electronically through the customer's
-            Geni AI Global Hub account.
+            Following successful payment confirmation, purchased credits, coins, subscriptions, or applicable digital services are delivered electronically through the customer's Geni AI Global Hub account.
         </p>
 
         <p>
-            AI-generated content is produced digitally through the
-            platform and is made available to the customer through
-            their account or applicable digital service interface.
+            AI-generated content is produced digitally through the platform and is made available to the customer through their account or applicable digital service interface.
         </p>
 
     </div>
@@ -274,7 +317,7 @@
 
         <h2>Our Digital AI Services</h2>
 
-        <ul>
+        <ul style="max-width: 400px; margin: auto;">
             <li>AI Image Generation</li>
             <li>AI Video Generation</li>
             <li>Text to Image</li>
@@ -294,13 +337,10 @@
         <h3>Official Business Model & Pricing Documentation</h3>
 
         <p>
-            For additional information about our business operations,
-            pricing packages, digital services, customer journey,
-            and delivery model, please review our official document.
+            For additional information about our business operations, pricing packages, digital services, customer journey, and delivery model, please review our official document.
         </p>
 
-        <a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf"
-           target="_blank">
+        <a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf" target="_blank">
             View / Download Official PDF
         </a>
 
@@ -312,37 +352,14 @@
 
         <h3>Quick Links & Policies</h3>
 
-        <a href="business-model.html">
-            → Business Model & Use Case
-        </a>
-
-        <a href="pricing.html">
-            → App Currency & Coins Packages
-        </a>
-
-        <a href="privacy.html">
-            → Privacy Policy
-        </a>
-
-        <a href="terms.html">
-            → Terms and Conditions
-        </a>
-
-        <a href="refund.html">
-            → Refund Policy
-        </a>
-
-        <a href="shipping.html">
-            → Shipping Policy
-        </a>
-
-        <a href="contact.html">
-            → Contact Us
-        </a>
-
-        <a href="ownership.html">
-            → Ownership Statement
-        </a>
+        <a href="business-model.html">→ Business Model & Use Case</a>
+        <a href="pricing.html">→ App Currency & Coins Packages</a>
+        <a href="privacy.html">→ Privacy Policy</a>
+        <a href="terms.html">→ Terms and Conditions</a>
+        <a href="refund.html">→ Refund Policy</a>
+        <a href="shipping.html">→ Shipping Policy</a>
+        <a href="contact.html">→ Contact Us</a>
+        <a href="ownership.html">→ Ownership Statement</a>
 
     </div>
 
@@ -351,26 +368,11 @@
 
 <footer>
 
-    <p>
-        <strong>Geni AI Global Hub</strong>
-    </p>
-
-    <p>
-        Email: basmallahnoor@gmail.com |
-        Phone: 0340-0059322
-    </p>
-
-    <p>
-        Address: Near grid station, Choa S. Shah, C.S. Shah
-    </p>
-
-    <p style="margin-top: 8px; font-size: 12px; color: #aaa;">
-        Owner: Wasia Bashir (D/O Muhammad Bashir)
-    </p>
-
-    <p style="margin-top: 5px; font-size: 12px; color: #aaa;">
-        Business Address matches official utility billing documents.
-    </p>
+    <p><strong>Geni AI Global Hub</strong></p>
+    <p>Email: basmallahnoor@gmail.com | Phone: 0340-0059322</p>
+    <p>Address: Near grid station, Choa S. Shah, C.S. Shah</p>
+    <p style="margin-top: 8px; font-size: 12px; color: #aaa;">Owner: Wasia Bashir (D/O Muhammad Bashir)</p>
+    <p style="margin-top: 5px; font-size: 12px; color: #aaa;">Business Address matches official utility billing documents.</p>
 
 </footer>
 
