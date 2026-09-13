@@ -28,6 +28,20 @@
             color: #cccccc;
         }
 
+        .warning-box {
+            background-color: #1a0f0f;
+            border: 1px solid #e50914;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box p {
+            margin: 8px 0;
+            font-size: 13px;
+            color: #ff9999;
+        }
+
         .card {
             background-color: #161616;
             border: 1px solid #333333;
@@ -117,13 +131,6 @@
             margin-top: 30px;
         }
 
-        .note {
-            font-size: 13px;
-            color: #888888;
-            margin-top: 20px;
-            text-align: center;
-        }
-
         #message {
             margin-top: 15px;
             font-weight: bold;
@@ -144,6 +151,13 @@
     <p style="text-align: center;">
         To permanently delete your Geni AI account, continue with Google.
     </p>
+
+    <!-- Warning Notice Box -->
+    <div class="warning-box">
+        <p style="color: #e50914; font-weight: bold;">⚠️ This action is permanent and cannot be undone.</p>
+        <p>Your account and all associated data will be permanently deleted. Any remaining coins, currency, rewards, or other account data will be lost and cannot be restored.</p>
+        <p>After deletion, you will not be able to sign in to Geni AI again using this Google account.</p>
+    </div>
 
     <!-- BEFORE LOGIN VIEW -->
     <div id="loginSection">
@@ -176,14 +190,6 @@
             </div>
         </div>
 
-        <p style="font-size: 13px; color: #cccccc; margin-bottom: 10px;">
-            Your profile, coins, currency balance, rewards, and other associated account data will be deleted. Any remaining coins or currency will be lost and cannot be restored.
-        </p>
-
-        <p style="font-size: 13px; color: #e50914; font-weight: bold;">
-            ⚠️ This action is permanent and cannot be undone.
-        </p>
-
         <!-- Auto-filled Fields -->
         <label for="name">Name</label>
         <input type="text" id="name" readonly>
@@ -197,12 +203,6 @@
     </div>
 
     <div id="message"></div>
-
-    <div class="note">
-        <p>
-            If you delete your account, you will need to create a new account if you decide to use Geni AI again in the future.
-        </p>
-    </div>
 
     <script>
         let googleIdToken = null;
