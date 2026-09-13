@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Delete Your Geni AI Account</title>
+
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
         body {
@@ -18,6 +20,7 @@
 
         h2 {
             color: #e50914;
+            text-align: center;
         }
 
         p {
@@ -25,21 +28,65 @@
             color: #cccccc;
         }
 
-        label {
-            display: block;
+        .card {
+            background-color: #161616;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 20px;
             margin-top: 20px;
-            margin-bottom: 8px;
         }
 
-        input[type="email"] {
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 15px;
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid #e50914;
+        }
+
+        .profile-info h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .profile-info p {
+            margin: 4px 0 0 0;
+            color: #aaaaaa;
+            font-size: 13px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+
+        input[type="text"] {
             width: 100%;
             padding: 12px;
-            margin-bottom: 15px;
             background-color: #1a1a1a;
             border: 1px solid #333333;
             color: #ffffff;
             border-radius: 6px;
             box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input[readonly] {
+            color: #888888;
+            cursor: not-allowed;
         }
 
         button {
@@ -51,6 +98,8 @@
             cursor: pointer;
             font-weight: bold;
             width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
         }
 
         button:hover {
@@ -62,16 +111,28 @@
             cursor: not-allowed;
         }
 
+        .google-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
         .note {
             font-size: 13px;
             color: #888888;
             margin-top: 20px;
+            text-align: center;
         }
 
         #message {
             margin-top: 15px;
             font-weight: bold;
             line-height: 1.5;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -80,60 +141,116 @@
 
     <h2>Delete Your Geni AI Account</h2>
 
-    <p>
-        To permanently delete your Geni AI account and its associated data,
-        enter the email address linked to your account and submit your request.
+    <p style="text-align: center;">
+        To permanently delete your Geni AI account, continue with Google.
     </p>
 
-    <p>
-        Your profile, coins, currency balance, rewards, and other associated
-        account data will be deleted. Any remaining coins or currency will be
-        lost and cannot be restored.
-    </p>
+    <!-- BEFORE LOGIN VIEW -->
+    <div id="loginSection">
+        <div class="google-btn-container">
+            <div id="g_id_onload"
+                 data-client_id="1021298502273-bdsucooa24a2pfdtckcicnq98o929jj2.apps.googleusercontent.com"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                 data-type="standard"
+                 data-shape="rectangular"
+                 data-theme="filled_black"
+                 data-text="continue_with"
+                 data-size="large"
+                 data-logo_alignment="left">
+            </div>
+        </div>
+    </div>
 
-    <p>
-        <strong>This action is permanent and cannot be undone.</strong>
-    </p>
+    <!-- AFTER LOGIN FORM VIEW -->
+    <div id="accountCard" class="card hidden">
+        
+        <!-- Profile Header Widget -->
+        <div class="profile-header">
+            <img id="userPicture" src="" alt="Profile" class="profile-img">
+            <div class="profile-info">
+                <h3 id="headerName">Name</h3>
+                <p id="headerEmail">email@example.com</p>
+            </div>
+        </div>
 
-    <form id="deleteForm">
+        <p style="font-size: 13px; color: #cccccc; margin-bottom: 10px;">
+            Your profile, coins, currency balance, rewards, and other associated account data will be deleted. Any remaining coins or currency will be lost and cannot be restored.
+        </p>
 
-        <label for="email">Email Address</label>
+        <p style="font-size: 13px; color: #e50914; font-weight: bold;">
+            ⚠️ This action is permanent and cannot be undone.
+        </p>
 
-        <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your account email"
-            autocomplete="email"
-            required
-        >
+        <!-- Auto-filled Fields -->
+        <label for="name">Name</label>
+        <input type="text" id="name" readonly>
 
-        <button type="submit" id="submitBtn">
+        <label for="email">Email</label>
+        <input type="text" id="email" readonly>
+
+        <button id="submitBtn">
             Delete My Account
         </button>
-
-    </form>
+    </div>
 
     <div id="message"></div>
 
     <div class="note">
         <p>
-            If you delete your account, you will need to create a new account
-            if you decide to use Geni AI again in the future.
+            If you delete your account, you will need to create a new account if you decide to use Geni AI again in the future.
         </p>
     </div>
 
     <script>
-        const form = document.getElementById('deleteForm');
-        const emailInput = document.getElementById('email');
-        const message = document.getElementById('message');
+        let googleIdToken = null;
+
+        // Automatically runs after Google Login
+        function handleCredentialResponse(response) {
+            googleIdToken = response.credential;
+            const payload = parseJwt(googleIdToken);
+
+            if (payload) {
+                // Populate Profile Header
+                document.getElementById('userPicture').src = payload.picture || '';
+                document.getElementById('headerName').textContent = payload.name || '';
+                document.getElementById('headerEmail').textContent = payload.email || '';
+
+                // Populate Form Fields Automatically
+                document.getElementById('name').value = payload.name || '';
+                document.getElementById('email').value = payload.email || '';
+
+                // Hide Google login button and show account details form
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('accountCard').classList.remove('hidden');
+            }
+        }
+
+        // Helper to decode JWT token from Google
+        function parseJwt(token) {
+            try {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // Delete Button Click Handler
         const submitButton = document.getElementById('submitBtn');
+        const message = document.getElementById('message');
 
-        form.addEventListener('submit', async function (event) {
-
-            event.preventDefault();
-
-            const email = emailInput.value.trim();
+        submitButton.addEventListener('click', async function () {
+            if (!googleIdToken) {
+                alert('Authentication token missing. Please sign in again.');
+                return;
+            }
 
             submitButton.disabled = true;
             submitButton.textContent = 'Processing...';
@@ -142,60 +259,39 @@
             message.textContent = 'Sending request...';
 
             try {
-
-                const response = await fetch(
+                const apiResponse = await fetch(
                     'https://geni-ai-backend.wasiabashir115.workers.dev/api/delete-account',
                     {
                         method: 'POST',
-
                         headers: {
                             'Content-Type': 'application/json'
                         },
-
                         body: JSON.stringify({
-                            email: email
+                            idToken: googleIdToken,
+                            action: 'delete_account'
                         })
                     }
                 );
 
-                const data = await response.json();
+                const data = await apiResponse.json();
 
                 if (data.success) {
-
                     message.style.color = '#4CAF50';
-
-                    message.textContent =
-                        'Account deletion successful. Your Geni AI account and associated data have been deleted.';
-
-                    emailInput.disabled = true;
-
+                    message.textContent = 'Account deletion successful. Your Geni AI account and associated data have been deleted.';
                     submitButton.textContent = 'Account Deleted';
-
                 } else {
-
                     message.style.color = '#e50914';
-
-                    message.textContent =
-                        'Error: ' +
-                        (data.error || 'Failed to delete account.');
-
+                    message.textContent = 'Error: ' + (data.message || data.error || 'Failed to delete account.');
                     submitButton.disabled = false;
-
                     submitButton.textContent = 'Delete My Account';
                 }
 
             } catch (error) {
-
                 message.style.color = '#e50914';
-
-                message.textContent =
-                    'Network error. Please try again later.';
-
+                message.textContent = 'Network error. Please try again later.';
                 submitButton.disabled = false;
-
                 submitButton.textContent = 'Delete My Account';
             }
-
         });
     </script>
 
