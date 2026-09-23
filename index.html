@@ -47,11 +47,6 @@
             border-radius: 50%;
             border: 2px solid var(--gold-primary);
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
         }
 
         h1 {
@@ -117,57 +112,54 @@
             margin-bottom: 6px;
         }
 
-        /* نیا اور درست لے آؤٹ: پہلے تفصیل، پھر نیچے اتھنٹک سائز کی تصویر */
+        /* یہاں تصویر کو بالکل چھوٹا (Thumbnail size) کر دیا گیا ہے تاکہ یہ زیادہ بڑی نہ لگے */
         .showcase-section {
             background: #151515;
             border: 1px solid var(--border-color);
             border-left: 3px solid var(--gold-primary);
-            padding: 22px;
-            margin: 25px 0;
+            padding: 20px;
+            margin: 20px 0;
             border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .showcase-section h3 {
-            color: var(--gold-light);
-            margin-bottom: 10px;
+        .content-area {
+            flex: 1;
+            min-width: 250px;
         }
 
-        .showcase-section p {
-            margin-bottom: 15px;
-        }
-
-        .image-container {
+        .image-thumb-container {
             text-align: center;
             background: #0a0a0a;
-            padding: 15px;
+            padding: 8px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
+            width: 90px;
         }
 
-        .image-container img {
-            max-width: 260px;
-            width: 100%;
-            height: auto;
+        .image-thumb-container img {
+            width: 80px;
+            height: 130px;
+            object-fit: cover;
             border-radius: 4px;
             border: 1px solid #333;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.02);
-        }
-
-        .image-container .view-caption {
             display: block;
-            margin-top: 10px;
-            font-size: 0.85rem;
+            margin: 0 auto;
+        }
+
+        .image-thumb-container a.view-caption {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.75rem;
             color: var(--gold-primary);
             text-decoration: none;
             font-weight: bold;
         }
 
-        .image-container .view-caption:hover {
+        .image-thumb-container a.view-caption:hover {
             text-decoration: underline;
             color: var(--gold-light);
         }
@@ -254,39 +246,45 @@
         <p>Rapid Gateway functions as the core payment processor for customer transactions on Geni AI Global Hub, utilized exclusively for digital credits (AI Coins and App Currency). No physical items or merchandise are sold. All purchased credits and generated content are transmitted electronically and instantly to the customer profile following payment verification.</p>
     </div>
 
-    <!-- فیچر 1: ڈیش بورڈ (پہلے تفصیل، پھر نیچے اتھنٹک سائز کی تصویر) -->
+    <!-- فیچر 1: تفصیل اوپر/سائیڈ پر اور تصویر بالکل چھوٹی سی سائیڈ پر -->
     <div class="showcase-section">
-        <h3>1. Main Dashboard & Wallet Synchronization</h3>
-        <p>The main dashboard allows users to monitor their live credit balance, track instant wallet synchronization, and access quick tools for digital asset creation. Every transaction details status updates instantly upon verification.</p>
-        <div class="image-container">
+        <div class="content-area">
+            <h3>1. Main Dashboard & Wallet Synchronization</h3>
+            <p>The main dashboard allows users to monitor their live credit balance, track instant wallet synchronization, and access quick tools for digital asset creation. Every transaction details status updates instantly upon verification.</p>
+        </div>
+        <div class="image-thumb-container">
             <a href="Screenshot_20260830-093912.jpg" target="_blank">
-                <img src="Screenshot_20260830-093912.jpg" alt="App Dashboard Preview">
+                <img src="Screenshot_20260830-093912.jpg" alt="Dashboard Preview">
             </a>
-            <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-caption">Click here to view full-size Dashboard interface →</a>
+            <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-caption">View Full</a>
         </div>
     </div>
 
     <!-- فیچر 2: اے آئی اسٹوڈیو -->
     <div class="showcase-section">
-        <h3>2. AI Generation Studio & Credit Packages</h3>
-        <p>Our studio empowers users to choose custom AI coin and currency bundles. Upon successful payment confirmation through the gateway, credits are instantly credited to the user profile to power neural generation tools.</p>
-        <div class="image-container">
+        <div class="content-area">
+            <h3>2. AI Generation Studio & Credit Packages</h3>
+            <p>Our studio empowers users to choose custom AI coin and currency bundles. Upon successful payment confirmation through the gateway, credits are instantly credited to the user profile to power neural generation tools.</p>
+        </div>
+        <div class="image-thumb-container">
             <a href="Screenshot_20260830-094109.jpg" target="_blank">
-                <img src="Screenshot_20260830-094109.jpg" alt="AI Generation Studio Preview">
+                <img src="Screenshot_20260830-094109.jpg" alt="AI Studio Preview">
             </a>
-            <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-caption">Click here to view full-size AI Studio interface →</a>
+            <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-caption">View Full</a>
         </div>
     </div>
 
-    <!-- فیچر 3: آڈیو اور وائس لائبریری -->
+    <!-- فیچر 3: آڈیو لائبریری -->
     <div class="showcase-section">
-        <h3>3. Audio & Voice Synthesis Library</h3>
-        <p>The audio module provides access to advanced text-to-speech generation and voice cloning capabilities. Users can spend their digital credits securely to synthesize professional-grade sound files and voiceovers.</p>
-        <div class="image-container">
+        <div class="content-area">
+            <h3>3. Audio & Voice Synthesis Library</h3>
+            <p>The audio module provides access to advanced text-to-speech generation and voice cloning capabilities. Users can spend their digital credits securely to synthesize professional-grade sound files and voiceovers.</p>
+        </div>
+        <div class="image-thumb-container">
             <a href="Screenshot_20260830-094345.jpg" target="_blank">
-                <img src="Screenshot_20260830-094345.jpg" alt="Audio & Voice Library Preview">
+                <img src="Screenshot_20260830-094345.jpg" alt="Audio Library Preview">
             </a>
-            <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-caption">Click here to view full-size Audio Library interface →</a>
+            <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-caption">View Full</a>
         </div>
     </div>
 
