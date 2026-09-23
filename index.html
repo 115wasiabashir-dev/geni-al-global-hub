@@ -92,61 +92,6 @@
             margin-bottom: 25px;
         }
 
-        /* بالکل چھوٹی اور نفاست والی تھمب نیل گیلری (نیچے کی طرف) */
-        .preview-section {
-            background: #161616;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .mini-gallery {
-            display: flex;
-            justify-content: space-around;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .mini-card {
-            background: #101010;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px;
-            text-align: center;
-            width: 100px;
-            transition: all 0.3s ease;
-        }
-
-        .mini-card:hover {
-            border-color: var(--gold-primary);
-            transform: translateY(-3px);
-        }
-
-        .mini-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #333;
-            background: #000;
-        }
-
-        .mini-card a.view-link {
-            display: block;
-            font-size: 11px;
-            color: var(--gold-primary);
-            margin-top: 6px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .mini-card a.view-link:hover {
-            text-decoration: underline;
-            color: var(--gold-light);
-        }
-
         .info-box {
             background: #151515;
             border-left: 3px solid var(--gold-primary);
@@ -170,6 +115,61 @@
 
         ol li {
             margin-bottom: 6px;
+        }
+
+        /* نیا اور درست لے آؤٹ: پہلے تفصیل، پھر نیچے اتھنٹک سائز کی تصویر */
+        .showcase-section {
+            background: #151515;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--gold-primary);
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .showcase-section h3 {
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+
+        .showcase-section p {
+            margin-bottom: 15px;
+        }
+
+        .image-container {
+            text-align: center;
+            background: #0a0a0a;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .image-container img {
+            max-width: 260px;
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .image-container .view-caption {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .image-container .view-caption:hover {
+            text-decoration: underline;
+            color: var(--gold-light);
         }
 
         .nav-links {
@@ -254,30 +254,39 @@
         <p>Rapid Gateway functions as the core payment processor for customer transactions on Geni AI Global Hub, utilized exclusively for digital credits (AI Coins and App Currency). No physical items or merchandise are sold. All purchased credits and generated content are transmitted electronically and instantly to the customer profile following payment verification.</p>
     </div>
 
-    <!-- بالکل چھوٹی تصویریں (Thumbnails) اور نیچے ان کے لنکس کا سیکشن -->
-    <div class="preview-section">
-        <h2>App Interface Snapshots</h2>
-        <p style="text-align: center; font-size: 13px; margin-bottom: 10px;">Click any thumbnail below to view the full-size interface:</p>
-        
-        <div class="mini-gallery">
-            <div class="mini-card">
-                <a href="Screenshot_20260830-093912.jpg" target="_blank">
-                    <img src="Screenshot_20260830-093912.jpg" alt="Dashboard">
-                </a>
-                <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-link">View Dashboard</a>
-            </div>
-            <div class="mini-card">
-                <a href="Screenshot_20260830-094109.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094109.jpg" alt="AI Studio">
-                </a>
-                <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-link">View AI Studio</a>
-            </div>
-            <div class="mini-card">
-                <a href="Screenshot_20260830-094345.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094345.jpg" alt="Audio Library">
-                </a>
-                <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-link">View Audio</a>
-            </div>
+    <!-- فیچر 1: ڈیش بورڈ (پہلے تفصیل، پھر نیچے اتھنٹک سائز کی تصویر) -->
+    <div class="showcase-section">
+        <h3>1. Main Dashboard & Wallet Synchronization</h3>
+        <p>The main dashboard allows users to monitor their live credit balance, track instant wallet synchronization, and access quick tools for digital asset creation. Every transaction details status updates instantly upon verification.</p>
+        <div class="image-container">
+            <a href="Screenshot_20260830-093912.jpg" target="_blank">
+                <img src="Screenshot_20260830-093912.jpg" alt="App Dashboard Preview">
+            </a>
+            <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-caption">Click here to view full-size Dashboard interface →</a>
+        </div>
+    </div>
+
+    <!-- فیچر 2: اے آئی اسٹوڈیو -->
+    <div class="showcase-section">
+        <h3>2. AI Generation Studio & Credit Packages</h3>
+        <p>Our studio empowers users to choose custom AI coin and currency bundles. Upon successful payment confirmation through the gateway, credits are instantly credited to the user profile to power neural generation tools.</p>
+        <div class="image-container">
+            <a href="Screenshot_20260830-094109.jpg" target="_blank">
+                <img src="Screenshot_20260830-094109.jpg" alt="AI Generation Studio Preview">
+            </a>
+            <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-caption">Click here to view full-size AI Studio interface →</a>
+        </div>
+    </div>
+
+    <!-- فیچر 3: آڈیو اور وائس لائبریری -->
+    <div class="showcase-section">
+        <h3>3. Audio & Voice Synthesis Library</h3>
+        <p>The audio module provides access to advanced text-to-speech generation and voice cloning capabilities. Users can spend their digital credits securely to synthesize professional-grade sound files and voiceovers.</p>
+        <div class="image-container">
+            <a href="Screenshot_20260830-094345.jpg" target="_blank">
+                <img src="Screenshot_20260830-094345.jpg" alt="Audio & Voice Library Preview">
+            </a>
+            <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-caption">Click here to view full-size Audio Library interface →</a>
         </div>
     </div>
 
