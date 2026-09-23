@@ -75,66 +75,60 @@
             margin-bottom: 30px;
         }
 
-        /* آپ کے خاکے کے مطابق پرفیکٹ ڈیزائن سیکشن */
+        /* فیچر سیکشنز */
         .feature-box {
             background: #161616;
             border: 1px solid var(--border-color);
             border-left: 4px solid var(--gold-primary);
-            padding: 25px;
+            padding: 22px;
             margin: 25px 0;
             border-radius: 0 8px 8px 0;
         }
 
         .feature-box h2 {
             color: var(--gold-primary);
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
 
         .feature-box p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             margin-bottom: 15px;
         }
 
-        /* نیچے کونے میں تصویر کا چھوٹا باکس */
+        /* تصویر کا باکس - پہلے سے مزید چھوٹا کیا گیا ہے */
         .image-corner-wrapper {
             display: flex;
             justify-content: flex-end;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .image-thumb-card {
             background: #0b0b0b;
             border: 1px solid var(--border-color);
-            padding: 8px;
+            padding: 6px;
             border-radius: 6px;
             text-align: center;
-            width: 100px;
-            transition: all 0.3s ease;
-        }
-
-        .image-thumb-card:hover {
-            border-color: var(--gold-primary);
-            transform: translateY(-2px);
+            width: 75px;
         }
 
         .image-thumb-card img {
-            width: 85px;
-            height: 140px;
+            width: 65px;
+            height: 105px;
             object-fit: cover;
             border-radius: 4px;
             border: 1px solid #333;
             display: block;
-            margin: 0 auto 6px auto;
+            margin: 0 auto 4px auto;
             background: #000;
         }
 
         .image-thumb-card a {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gold-primary);
             text-decoration: none;
             font-weight: bold;
@@ -146,30 +140,66 @@
             color: var(--gold-light);
         }
 
-        .nav-links {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
+        /* نیچے والے لنکس اور پالیسیوں کے لیے خوبصورت کارڈز (مختصر تفصیل + More بٹن) */
+        .section-title {
+            color: var(--gold-primary);
+            font-size: 1.4rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
         }
 
-        .nav-links h3 {
-            color: var(--gold-primary);
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .policy-card {
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--gold-primary);
+            padding: 18px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .policy-card h3 {
+            color: var(--gold-light);
+            font-size: 1.05rem;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .policy-card p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
             margin-bottom: 15px;
         }
 
-        .nav-links a {
+        .more-btn {
             display: inline-block;
-            margin: 6px 12px;
+            background: transparent;
             color: var(--gold-primary);
-            font-weight: 600;
-            font-size: 0.9rem;
+            border: 1px solid var(--gold-primary);
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
             text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.2s ease;
+            align-self: flex-start;
         }
 
-        .nav-links a:hover {
-            color: var(--gold-light);
-            text-decoration: underline;
+        .more-btn:hover {
+            background: var(--gold-primary);
+            color: #000;
         }
 
         footer {
@@ -207,15 +237,14 @@
     <!-- سیکشن 1: ڈیش بورڈ -->
     <div class="feature-box">
         <h2>1. Main Dashboard & Live Wallet Synchronization</h2>
-        <p>The main dashboard provides users with a comprehensive overview of their active accounts. It displays real-time credit balances, instant wallet updates, and immediate transaction logs. Every credit purchase or usage is synchronized securely with local providers, ensuring complete transparency and smooth navigation across all platform tools.</p>
+        <p>The main dashboard provides users with a comprehensive overview of their active accounts. It displays real-time credit balances, instant wallet updates, and immediate transaction logs. Every credit purchase or usage is synchronized securely with local providers, ensuring complete transparency.</p>
         
-        <!-- آپ کے بتائے ہوئے طریقے کے مطابق نیچے کونے میں تصویر کا چھوٹا باکس -->
         <div class="image-corner-wrapper">
             <div class="image-thumb-card">
                 <a href="Screenshot_20260830-093912.jpg" target="_blank">
                     <img src="Screenshot_20260830-093912.jpg" alt="Dashboard Preview">
                 </a>
-                <a href="Screenshot_20260830-093912.jpg" target="_blank">View Full →</a>
+                <a href="Screenshot_20260830-093912.jpg" target="_blank">View Full</a>
             </div>
         </div>
     </div>
@@ -223,14 +252,14 @@
     <!-- سیکشن 2: اے آئی اسٹوڈیو -->
     <div class="feature-box">
         <h2>2. AI Generation Studio & Credit Packages</h2>
-        <p>Our advanced AI studio empowers customers to generate professional digital assets, high-quality graphics, and dynamic multimedia content. Users select flexible digital credit packages (AI Coins and App Currency) through secure gateway checkout. Once verified, credits are deposited instantly to power neural generation workflows.</p>
+        <p>Our advanced AI studio empowers customers to generate professional digital assets, high-quality graphics, and dynamic multimedia content. Users select flexible digital credit packages (AI Coins and App Currency) through secure gateway checkout.</p>
         
         <div class="image-corner-wrapper">
             <div class="image-thumb-card">
                 <a href="Screenshot_20260830-094109.jpg" target="_blank">
                     <img src="Screenshot_20260830-094109.jpg" alt="AI Studio Preview">
                 </a>
-                <a href="Screenshot_20260830-094109.jpg" target="_blank">View Full →</a>
+                <a href="Screenshot_20260830-094109.jpg" target="_blank">View Full</a>
             </div>
         </div>
     </div>
@@ -238,28 +267,85 @@
     <!-- سیکشن 3: آڈیو لائبریری -->
     <div class="feature-box">
         <h2>3. Audio & Voice Synthesis Library</h2>
-        <p>The audio and voice module allows users to experience state-of-the-art text-to-speech synthesis and custom voice cloning features. By spending digital credits securely within the platform, users can produce crystal-clear voiceovers and sound tracks tailored precisely to their creative needs.</p>
+        <p>The audio and voice module allows users to experience state-of-the-art text-to-speech synthesis and custom voice cloning features. By spending digital credits securely, users can produce crystal-clear voiceovers tailored precisely to their creative needs.</p>
         
         <div class="image-corner-wrapper">
             <div class="image-thumb-card">
                 <a href="Screenshot_20260830-094345.jpg" target="_blank">
                     <img src="Screenshot_20260830-094345.jpg" alt="Audio Library Preview">
                 </a>
-                <a href="Screenshot_20260830-094345.jpg" target="_blank">View Full →</a>
+                <a href="Screenshot_20260830-094345.jpg" target="_blank">View Full</a>
             </div>
         </div>
     </div>
 
-    <div class="nav-links">
-        <h3>Quick Links & Policies</h3>
-        <a href="business-model.html">→ Business Model</a>
-        <a href="pricing.html">→ Pricing Packages</a>
-        <a href="privacy.html">→ Privacy Policy</a>
-        <a href="terms.html">→ Terms & Conditions</a>
-        <a href="refund.html">→ Refund Policy</a>
-        <a href="shipping.html">→ Shipping Policy</a>
-        <a href="contact.html">→ Contact Us</a>
-        <a href="ownership.html">→ Ownership</a>
+    <!-- نیچے والے لنکس کی جگہ خوبصورت کارڈز مع مختصر تفصیل اور More بٹن -->
+    <h3 class="section-title">Explore Policies & Information</h3>
+
+    <div class="policy-grid">
+        <div class="policy-card">
+            <div>
+                <h3>Business Model</h3>
+                <p>Learn about our digital credit ecosystem and operational workflows.</p>
+            </div>
+            <a href="business-model.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Pricing Packages</h3>
+                <p>Explore our flexible AI coin bundles and digital credit pricing structures.</p>
+            </div>
+            <a href="pricing.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Privacy Policy</h3>
+                <p>Understand how we protect and manage your personal data securely.</p>
+            </div>
+            <a href="privacy.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Terms & Conditions</h3>
+                <p>Review the guidelines and rules for utilizing our platform services.</p>
+            </div>
+            <a href="terms.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Refund Policy</h3>
+                <p>Details regarding digital credit purchases and transaction reversals.</p>
+            </div>
+            <a href="refund.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Shipping Policy</h3>
+                <p>Information on instant electronic delivery of digital AI credits.</p>
+            </div>
+            <a href="shipping.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Contact Us</h3>
+                <p>Get in touch with our support team for any assistance or queries.</p>
+            </div>
+            <a href="contact.html" class="more-btn">More →</a>
+        </div>
+
+        <div class="policy-card">
+            <div>
+                <h3>Ownership</h3>
+                <p>Official platform registration and legal ownership details.</p>
+            </div>
+            <a href="ownership.html" class="more-btn">More →</a>
+        </div>
     </div>
 
 </div>
