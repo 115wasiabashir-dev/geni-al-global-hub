@@ -4,10 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms and Conditions - Geni AI Global Hub</title>
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f0f0f0;
+            --text-muted: #aaaaaa;
+            --border-color: #262626;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 30px 15px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: var(--gold-light);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        h2 {
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--gold-light);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background: transparent;
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: var(--gold-primary);
+            color: #000;
+            text-decoration: none;
+        }
+
+        footer {
+            background: #050505;
+            color: var(--text-muted);
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer strong {
+            color: var(--gold-primary);
+        }
+    </style>
 </head>
 <body>
+
+<div class="container">
     <h1>Terms and Conditions</h1>
-    <p><strong>Last Updated:</strong> August 2026</p>
+    <div class="last-updated">Last Updated: August 2026</div>
 
     <p>Welcome to Geni AI Global Hub. By accessing or using our website and digital AI services, you agree to be bound by these Terms and Conditions. Please read them carefully before using our platform.</p>
 
@@ -39,10 +155,14 @@
     <p>These Terms shall be governed by and construed in accordance with the laws of Pakistan. Any disputes arising out of or relating to these Terms shall be subject to the exclusive jurisdiction of the courts of Pakistan.</p>
 
     <h2>10. Contact Information</h2>
-    <p>
-        <strong>Email:</strong> basmallahnoor@gmail.com<br>
-    
+    <p><strong>Email:</strong> basmallahnoor@gmail.com</p>
 
-    <p><a href="index.html">← Back to Home</a></p>
+    <a href="index.html" class="back-link">← Back to Home</a>
+</div>
+
+<footer>
+    <p><strong>Geni AI Global Hub</strong> | Email: basmallahnoor@gmail.com</p>
+</footer>
+
 </body>
 </html>
