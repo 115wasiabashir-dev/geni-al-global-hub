@@ -75,76 +75,11 @@
             margin-bottom: 30px;
         }
 
-        /* فیچر سیکشنز */
-        .feature-box {
-            background: #161616;
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--gold-primary);
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .feature-box h2 {
-            color: var(--gold-primary);
-            font-size: 1.25rem;
-            margin-top: 0;
-            margin-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .feature-box p {
-            color: var(--text-muted);
-            font-size: 0.93rem;
-            margin-bottom: 15px;
-        }
-
-        /* تصویر کا باکس - پہلے سے مزید چھوٹا کیا گیا ہے */
-        .image-corner-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
-
-        .image-thumb-card {
-            background: #0b0b0b;
-            border: 1px solid var(--border-color);
-            padding: 6px;
-            border-radius: 6px;
-            text-align: center;
-            width: 75px;
-        }
-
-        .image-thumb-card img {
-            width: 65px;
-            height: 105px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #333;
-            display: block;
-            margin: 0 auto 4px auto;
-            background: #000;
-        }
-
-        .image-thumb-card a {
-            font-size: 0.7rem;
-            color: var(--gold-primary);
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-        }
-
-        .image-thumb-card a:hover {
-            text-decoration: underline;
-            color: var(--gold-light);
-        }
-
-        /* نیچے والے لنکس اور پالیسیوں کے لیے خوبصورت کارڈز (مختصر تفصیل + More بٹن) */
+        /* پالیسی کارڈز (اوپر والا حصہ) */
         .section-title {
             color: var(--gold-primary);
             font-size: 1.4rem;
-            margin-top: 40px;
+            margin-top: 20px;
             margin-bottom: 20px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
@@ -155,7 +90,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            margin-bottom: 35px;
         }
 
         .policy-card {
@@ -202,6 +137,71 @@
             color: #000;
         }
 
+        /* ایپ فیچرز اور اسکرین شاٹس (نیچے والا حصہ) */
+        .feature-box {
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--gold-primary);
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .feature-box h2 {
+            color: var(--gold-primary);
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .feature-box p {
+            color: var(--text-muted);
+            font-size: 0.93rem;
+            margin-bottom: 15px;
+        }
+
+        /* تصویر کا چھوٹا اور نفاست والا باکس */
+        .image-corner-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .image-thumb-card {
+            background: #0b0b0b;
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            border-radius: 6px;
+            text-align: center;
+            width: 60px;
+        }
+
+        .image-thumb-card img {
+            width: 52px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 3px;
+            border: 1px solid #333;
+            display: block;
+            margin: 0 auto 3px auto;
+            background: #000;
+        }
+
+        .image-thumb-card a {
+            font-size: 0.65rem;
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        .image-thumb-card a:hover {
+            text-decoration: underline;
+            color: var(--gold-light);
+        }
+
         footer {
             background: #050505;
             color: var(--text-muted);
@@ -223,8 +223,8 @@
 <div class="container">
 
     <div class="logo-container">
-        <a href="IMG-20260830-WA0000(1).jpg" target="_blank">
-            <img src="IMG-20260830-WA0000(1).jpg" alt="Geni AI Global Hub Logo">
+        <a href="image/IMG-20260830-WA0000(1).jpg" target="_blank">
+            <img src="image/IMG-20260830-WA0000(1).jpg" alt="Geni AI Global Hub Logo">
         </a>
         <h1>Geni AI Global Hub</h1>
         <p class="tagline">"Your Creative Command"</p>
@@ -234,52 +234,7 @@
         Welcome to Geni AI Global Hub, an elite digital platform delivering advanced multi-modal artificial intelligence tools and cutting-edge creative digital services.
     </p>
 
-    <!-- سیکشن 1: ڈیش بورڈ -->
-    <div class="feature-box">
-        <h2>1. Main Dashboard & Live Wallet Synchronization</h2>
-        <p>The main dashboard provides users with a comprehensive overview of their active accounts. It displays real-time credit balances, instant wallet updates, and immediate transaction logs. Every credit purchase or usage is synchronized securely with local providers, ensuring complete transparency.</p>
-        
-        <div class="image-corner-wrapper">
-            <div class="image-thumb-card">
-                <a href="Screenshot_20260830-093912.jpg" target="_blank">
-                    <img src="Screenshot_20260830-093912.jpg" alt="Dashboard Preview">
-                </a>
-                <a href="Screenshot_20260830-093912.jpg" target="_blank">View Full</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- سیکشن 2: اے آئی اسٹوڈیو -->
-    <div class="feature-box">
-        <h2>2. AI Generation Studio & Credit Packages</h2>
-        <p>Our advanced AI studio empowers customers to generate professional digital assets, high-quality graphics, and dynamic multimedia content. Users select flexible digital credit packages (AI Coins and App Currency) through secure gateway checkout.</p>
-        
-        <div class="image-corner-wrapper">
-            <div class="image-thumb-card">
-                <a href="Screenshot_20260830-094109.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094109.jpg" alt="AI Studio Preview">
-                </a>
-                <a href="Screenshot_20260830-094109.jpg" target="_blank">View Full</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- سیکشن 3: آڈیو لائبریری -->
-    <div class="feature-box">
-        <h2>3. Audio & Voice Synthesis Library</h2>
-        <p>The audio and voice module allows users to experience state-of-the-art text-to-speech synthesis and custom voice cloning features. By spending digital credits securely, users can produce crystal-clear voiceovers tailored precisely to their creative needs.</p>
-        
-        <div class="image-corner-wrapper">
-            <div class="image-thumb-card">
-                <a href="Screenshot_20260830-094345.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094345.jpg" alt="Audio Library Preview">
-                </a>
-                <a href="Screenshot_20260830-094345.jpg" target="_blank">View Full</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- نیچے والے لنکس کی جگہ خوبصورت کارڈز مع مختصر تفصیل اور More بٹن -->
+    <!-- 1. پالیسی کارڈز اور انفارمیشن (اوپر والا حصہ) -->
     <h3 class="section-title">Explore Policies & Information</h3>
 
     <div class="policy-grid">
@@ -345,6 +300,54 @@
                 <p>Official platform registration and legal ownership details.</p>
             </div>
             <a href="ownership.html" class="more-btn">More →</a>
+        </div>
+    </div>
+
+    <!-- 2. ایپ فیچرز اور اسکرین شاٹس (نیچے والا حصہ) -->
+    <h3 class="section-title">App Interface Snapshots</h3>
+
+    <!-- ہوم / ڈیش بورڈ سیکشن -->
+    <div class="feature-box">
+        <h2>1. Main Dashboard & Live Wallet Synchronization</h2>
+        <p>The main dashboard provides users with a comprehensive overview of their active accounts. It displays real-time credit balances, instant wallet updates, and immediate transaction logs. Every credit purchase or usage is synchronized securely with local providers, ensuring complete transparency.</p>
+        
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="image/home.jpg" target="_blank">
+                    <img src="image/home.jpg" alt="Dashboard Preview">
+                </a>
+                <a href="image/home.jpg" target="_blank">View Full</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- اسکور / اسٹور ویو سیکشن -->
+    <div class="feature-box">
+        <h2>2. AI Generation Studio & Credit Packages</h2>
+        <p>Our advanced AI studio empowers customers to generate professional digital assets, high-quality graphics, and dynamic multimedia content. Users select flexible digital credit packages (AI Coins and App Currency) through secure gateway checkout.</p>
+        
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="image/Store_view.jpg" target="_blank">
+                    <img src="image/Store_view.jpg" alt="AI Studio Preview">
+                </a>
+                <a href="image/Store_view.jpg" target="_blank">View Full</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- آڈیو ٹولز سیکشن -->
+    <div class="feature-box">
+        <h2>3. Audio & Voice Synthesis Library</h2>
+        <p>The audio and voice module allows users to experience state-of-the-art text-to-speech synthesis and custom voice cloning features. By spending digital credits securely, users can produce crystal-clear voiceovers tailored precisely to their creative needs.</p>
+        
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="image/audio-tools.jpg" target="_blank">
+                    <img src="image/audio-tools.jpg" alt="Audio Library Preview">
+                </a>
+                <a href="image/audio-tools.jpg" target="_blank">View Full</a>
+            </div>
         </div>
     </div>
 
