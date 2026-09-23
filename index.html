@@ -13,13 +13,13 @@
             --gold-light: #f3e5ab;
             --gold-dark: #aa8c2c;
             --text-main: #f0f0f0;
-            --text-muted: #999999;
-            --border-color: #222222;
+            --text-muted: #aaaaaa;
+            --border-color: #262626;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             margin: 0;
             padding: 30px 15px;
             background-color: var(--bg-color);
@@ -30,8 +30,8 @@
             max-width: 850px;
             margin: auto;
             background: var(--card-bg);
-            padding: 35px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
         }
@@ -42,147 +42,129 @@
         }
 
         .logo-container img {
-            max-width: 80px;
+            max-width: 85px;
             height: auto;
             border-radius: 50%;
             border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
         }
 
         h1 {
             background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 2.2rem;
-            margin-top: 12px;
+            font-size: 2.3rem;
+            margin-top: 10px;
             margin-bottom: 5px;
             text-align: center;
-        }
-
-        h2, h3 {
-            color: var(--gold-primary);
-            font-size: 1.2rem;
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
-
-        p, li {
-            color: var(--text-muted);
-            font-size: 0.95rem;
         }
 
         .tagline {
             text-align: center;
             color: var(--gold-light);
             font-style: italic;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             letter-spacing: 1px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .intro-text {
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .info-box {
-            background: #151515;
-            border-left: 3px solid var(--gold-primary);
-            padding: 18px 20px;
-            margin: 20px 0;
-            border-radius: 0 6px 6px 0;
-            border-top: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
+        /* آپ کے خاکے کے مطابق پرفیکٹ ڈیزائن سیکشن */
+        .feature-box {
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--gold-primary);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .feature-box h2 {
+            color: var(--gold-primary);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 15px;
             border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
         }
 
-        .highlight {
-            color: var(--gold-light);
-            font-weight: bold;
+        .feature-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
         }
 
-        ol {
-            padding-left: 18px;
-            margin: 0;
-        }
-
-        ol li {
-            margin-bottom: 6px;
-        }
-
-        /* یہاں تصویر کو بالکل چھوٹا (Thumbnail size) کر دیا گیا ہے تاکہ یہ زیادہ بڑی نہ لگے */
-        .showcase-section {
-            background: #151515;
-            border: 1px solid var(--border-color);
-            border-left: 3px solid var(--gold-primary);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 6px 6px 0;
+        /* نیچے کونے میں تصویر کا چھوٹا باکس */
+        .image-corner-wrapper {
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            flex-wrap: wrap;
+            justify-content: flex-end;
+            margin-top: 15px;
         }
 
-        .content-area {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .image-thumb-container {
-            text-align: center;
-            background: #0a0a0a;
-            padding: 8px;
+        .image-thumb-card {
+            background: #0b0b0b;
             border: 1px solid var(--border-color);
+            padding: 8px;
             border-radius: 6px;
-            width: 90px;
+            text-align: center;
+            width: 100px;
+            transition: all 0.3s ease;
         }
 
-        .image-thumb-container img {
-            width: 80px;
-            height: 130px;
+        .image-thumb-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-2px);
+        }
+
+        .image-thumb-card img {
+            width: 85px;
+            height: 140px;
             object-fit: cover;
             border-radius: 4px;
             border: 1px solid #333;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 6px auto;
+            background: #000;
         }
 
-        .image-thumb-container a.view-caption {
-            display: block;
-            margin-top: 6px;
+        .image-thumb-card a {
             font-size: 0.75rem;
             color: var(--gold-primary);
             text-decoration: none;
             font-weight: bold;
+            display: block;
         }
 
-        .image-thumb-container a.view-caption:hover {
+        .image-thumb-card a:hover {
             text-decoration: underline;
             color: var(--gold-light);
         }
 
         .nav-links {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 35px;
+            padding-top: 25px;
             border-top: 1px solid var(--border-color);
             text-align: center;
         }
 
         .nav-links h3 {
+            color: var(--gold-primary);
             margin-bottom: 15px;
         }
 
         .nav-links a {
             display: inline-block;
-            margin: 5px 10px;
+            margin: 6px 12px;
             color: var(--gold-primary);
             font-weight: 600;
             font-size: 0.9rem;
             text-decoration: none;
-            transition: color 0.2s;
         }
 
         .nav-links a:hover {
@@ -193,11 +175,11 @@
         footer {
             background: #050505;
             color: var(--text-muted);
-            padding: 18px;
+            padding: 20px;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 13px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
         }
 
@@ -222,69 +204,49 @@
         Welcome to Geni AI Global Hub, an elite digital platform delivering advanced multi-modal artificial intelligence tools and cutting-edge creative digital services.
     </p>
 
-    <div class="info-box">
-        <h2>Business Model & Payment Gateway Use Case</h2>
-        <p>Geni AI Global Hub is a digital artificial intelligence ecosystem providing powerful AI-driven creative generation services. Our customers utilize platform tools to craft professional AI images, dynamic videos, pristine audio, expressive voice content, and unique digital assets.</p>
-        <p>We operate on a secure <span class="highlight">digital credit architecture</span>. Clients purchase flexible digital credit packages (AI Coins and App Currency) to unlock and execute specialized AI generation workflows seamlessly.</p>
-        <p><span class="highlight">Our payment gateway integration is dedicated strictly to processing customer transactions for digital AI services and credit bundles (AI Coins and App Currency).</span> There are no recurring subscription fees; all purchases are transparent, one-time credit packages.</p>
-    </div>
-
-    <div class="info-box">
-        <h3>How Customers Use Our Platform (Complete Journey)</h3>
-        <ol>
-            <li>Users visit Geni AI Global Hub to explore our comprehensive suite of AI features and digital credit packages.</li>
-            <li>Users select their preferred credit bundle based on their generation requirements.</li>
-            <li>Users proceed to secure checkout and select their payment option.</li>
-            <li>Payments are processed securely via the integrated payment gateway, including Rapid Gateway where applicable.</li>
-            <li>Upon instant payment confirmation, purchased credits are immediately deposited into the user's wallet.</li>
-            <li>Users spend these credits to generate advanced AI images, videos, audio, or speech outputs.</li>
-        </ol>
-    </div>
-
-    <div class="info-box">
-        <h3>Payment Gateway & Digital Delivery Purpose</h3>
-        <p>Rapid Gateway functions as the core payment processor for customer transactions on Geni AI Global Hub, utilized exclusively for digital credits (AI Coins and App Currency). No physical items or merchandise are sold. All purchased credits and generated content are transmitted electronically and instantly to the customer profile following payment verification.</p>
-    </div>
-
-    <!-- فیچر 1: تفصیل اوپر/سائیڈ پر اور تصویر بالکل چھوٹی سی سائیڈ پر -->
-    <div class="showcase-section">
-        <div class="content-area">
-            <h3>1. Main Dashboard & Wallet Synchronization</h3>
-            <p>The main dashboard allows users to monitor their live credit balance, track instant wallet synchronization, and access quick tools for digital asset creation. Every transaction details status updates instantly upon verification.</p>
-        </div>
-        <div class="image-thumb-container">
-            <a href="Screenshot_20260830-093912.jpg" target="_blank">
-                <img src="Screenshot_20260830-093912.jpg" alt="Dashboard Preview">
-            </a>
-            <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-caption">View Full</a>
+    <!-- سیکشن 1: ڈیش بورڈ -->
+    <div class="feature-box">
+        <h2>1. Main Dashboard & Live Wallet Synchronization</h2>
+        <p>The main dashboard provides users with a comprehensive overview of their active accounts. It displays real-time credit balances, instant wallet updates, and immediate transaction logs. Every credit purchase or usage is synchronized securely with local providers, ensuring complete transparency and smooth navigation across all platform tools.</p>
+        
+        <!-- آپ کے بتائے ہوئے طریقے کے مطابق نیچے کونے میں تصویر کا چھوٹا باکس -->
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="Screenshot_20260830-093912.jpg" target="_blank">
+                    <img src="Screenshot_20260830-093912.jpg" alt="Dashboard Preview">
+                </a>
+                <a href="Screenshot_20260830-093912.jpg" target="_blank">View Full →</a>
+            </div>
         </div>
     </div>
 
-    <!-- فیچر 2: اے آئی اسٹوڈیو -->
-    <div class="showcase-section">
-        <div class="content-area">
-            <h3>2. AI Generation Studio & Credit Packages</h3>
-            <p>Our studio empowers users to choose custom AI coin and currency bundles. Upon successful payment confirmation through the gateway, credits are instantly credited to the user profile to power neural generation tools.</p>
-        </div>
-        <div class="image-thumb-container">
-            <a href="Screenshot_20260830-094109.jpg" target="_blank">
-                <img src="Screenshot_20260830-094109.jpg" alt="AI Studio Preview">
-            </a>
-            <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-caption">View Full</a>
+    <!-- سیکشن 2: اے آئی اسٹوڈیو -->
+    <div class="feature-box">
+        <h2>2. AI Generation Studio & Credit Packages</h2>
+        <p>Our advanced AI studio empowers customers to generate professional digital assets, high-quality graphics, and dynamic multimedia content. Users select flexible digital credit packages (AI Coins and App Currency) through secure gateway checkout. Once verified, credits are deposited instantly to power neural generation workflows.</p>
+        
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="Screenshot_20260830-094109.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094109.jpg" alt="AI Studio Preview">
+                </a>
+                <a href="Screenshot_20260830-094109.jpg" target="_blank">View Full →</a>
+            </div>
         </div>
     </div>
 
-    <!-- فیچر 3: آڈیو لائبریری -->
-    <div class="showcase-section">
-        <div class="content-area">
-            <h3>3. Audio & Voice Synthesis Library</h3>
-            <p>The audio module provides access to advanced text-to-speech generation and voice cloning capabilities. Users can spend their digital credits securely to synthesize professional-grade sound files and voiceovers.</p>
-        </div>
-        <div class="image-thumb-container">
-            <a href="Screenshot_20260830-094345.jpg" target="_blank">
-                <img src="Screenshot_20260830-094345.jpg" alt="Audio Library Preview">
-            </a>
-            <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-caption">View Full</a>
+    <!-- سیکشن 3: آڈیو لائبریری -->
+    <div class="feature-box">
+        <h2>3. Audio & Voice Synthesis Library</h2>
+        <p>The audio and voice module allows users to experience state-of-the-art text-to-speech synthesis and custom voice cloning features. By spending digital credits securely within the platform, users can produce crystal-clear voiceovers and sound tracks tailored precisely to their creative needs.</p>
+        
+        <div class="image-corner-wrapper">
+            <div class="image-thumb-card">
+                <a href="Screenshot_20260830-094345.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094345.jpg" alt="Audio Library Preview">
+                </a>
+                <a href="Screenshot_20260830-094345.jpg" target="_blank">View Full →</a>
+            </div>
         </div>
     </div>
 
