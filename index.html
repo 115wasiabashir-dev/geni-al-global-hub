@@ -42,11 +42,11 @@
         }
 
         .logo-container img {
-            max-width: 90px;
+            max-width: 80px;
             height: auto;
             border-radius: 50%;
             border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.25);
             transition: transform 0.3s ease;
         }
 
@@ -92,48 +92,59 @@
             margin-bottom: 25px;
         }
 
-        /* چھوٹی اور خوبصورت تھمب نیل گیلری */
-        .screenshot-gallery {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+        /* بالکل چھوٹی اور نفاست والی تھمب نیل گیلری (نیچے کی طرف) */
+        .preview-section {
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
             margin: 25px 0;
         }
 
-        .screenshot-card {
-            background: #181818;
+        .mini-gallery {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .mini-card {
+            background: #101010;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             padding: 8px;
             text-align: center;
-            width: 140px;
+            width: 100px;
             transition: all 0.3s ease;
         }
 
-        .screenshot-card:hover {
+        .mini-card:hover {
             border-color: var(--gold-primary);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15);
         }
 
-        .screenshot-card img {
+        .mini-card img {
             width: 100%;
-            height: 220px;
+            height: 140px;
             object-fit: cover;
             border-radius: 4px;
             border: 1px solid #333;
             background: #000;
         }
 
-        .screenshot-card p {
+        .mini-card a.view-link {
+            display: block;
             font-size: 11px;
+            color: var(--gold-primary);
+            margin-top: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .mini-card a.view-link:hover {
+            text-decoration: underline;
             color: var(--gold-light);
-            margin: 6px 0 2px 0;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .info-box {
@@ -219,33 +230,6 @@
         Welcome to Geni AI Global Hub, an elite digital platform delivering advanced multi-modal artificial intelligence tools and cutting-edge creative digital services.
     </p>
 
-    <div class="section">
-        <h2>App Interface & Platform Preview</h2>
-        <p style="text-align: center; font-size: 13px; margin-bottom: 15px;">Click on any preview card below to view the full-size interface:</p>
-
-        <!-- چھوٹی اور بہترین تصاویر والی گیلری -->
-        <div class="screenshot-gallery">
-            <div class="screenshot-card">
-                <a href="Screenshot_20260830-093912.jpg" target="_blank">
-                    <img src="Screenshot_20260830-093912.jpg" alt="App Home Dashboard">
-                </a>
-                <p>Dashboard</p>
-            </div>
-            <div class="screenshot-card">
-                <a href="Screenshot_20260830-094109.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094109.jpg" alt="AI Image Generation Studio">
-                </a>
-                <p>AI Studio</p>
-            </div>
-            <div class="screenshot-card">
-                <a href="Screenshot_20260830-094345.jpg" target="_blank">
-                    <img src="Screenshot_20260830-094345.jpg" alt="Audio & Voice Library">
-                </a>
-                <p>Audio Library</p>
-            </div>
-        </div>
-    </div>
-
     <div class="info-box">
         <h2>Business Model & Payment Gateway Use Case</h2>
         <p>Geni AI Global Hub is a digital artificial intelligence ecosystem providing powerful AI-driven creative generation services. Our customers utilize platform tools to craft professional AI images, dynamic videos, pristine audio, expressive voice content, and unique digital assets.</p>
@@ -268,6 +252,33 @@
     <div class="info-box">
         <h3>Payment Gateway & Digital Delivery Purpose</h3>
         <p>Rapid Gateway functions as the core payment processor for customer transactions on Geni AI Global Hub, utilized exclusively for digital credits (AI Coins and App Currency). No physical items or merchandise are sold. All purchased credits and generated content are transmitted electronically and instantly to the customer profile following payment verification.</p>
+    </div>
+
+    <!-- بالکل چھوٹی تصویریں (Thumbnails) اور نیچے ان کے لنکس کا سیکشن -->
+    <div class="preview-section">
+        <h2>App Interface Snapshots</h2>
+        <p style="text-align: center; font-size: 13px; margin-bottom: 10px;">Click any thumbnail below to view the full-size interface:</p>
+        
+        <div class="mini-gallery">
+            <div class="mini-card">
+                <a href="Screenshot_20260830-093912.jpg" target="_blank">
+                    <img src="Screenshot_20260830-093912.jpg" alt="Dashboard">
+                </a>
+                <a href="Screenshot_20260830-093912.jpg" target="_blank" class="view-link">View Dashboard</a>
+            </div>
+            <div class="mini-card">
+                <a href="Screenshot_20260830-094109.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094109.jpg" alt="AI Studio">
+                </a>
+                <a href="Screenshot_20260830-094109.jpg" target="_blank" class="view-link">View AI Studio</a>
+            </div>
+            <div class="mini-card">
+                <a href="Screenshot_20260830-094345.jpg" target="_blank">
+                    <img src="Screenshot_20260830-094345.jpg" alt="Audio Library">
+                </a>
+                <a href="Screenshot_20260830-094345.jpg" target="_blank" class="view-link">View Audio</a>
+            </div>
+        </div>
     </div>
 
     <div class="nav-links">
