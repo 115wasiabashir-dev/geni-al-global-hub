@@ -2,12 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us – Geni AI Global Hub</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f9f9f9; color: #333; }
-        .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; }
-        .footer { margin-top: 30px; border-top: 1px solid #ddd; padding-top: 15px; font-size: 14px; color: #666; }
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f0f0f0;
+            --text-muted: #aaaaaa;
+            --border-color: #262626;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 30px 15px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: var(--gold-light);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background: transparent;
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: var(--gold-primary);
+            color: #000;
+            text-decoration: none;
+        }
+
+        footer {
+            background: #050505;
+            color: var(--text-muted);
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 13px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer strong {
+            color: var(--gold-primary);
+        }
     </style>
 </head>
 <body>
@@ -15,18 +116,16 @@
     <h1>Contact Us – Geni AI Global Hub</h1>
     <p>If you have any questions or need support regarding Geni AI Global Hub, feel free to reach out to us.</p>
 
-    
-
-    <h3>Support Contact:</h3>
+    <h3>Support Contact</h3>
     <p>
-        <strong>Email:</strong> basmallahnoor@gmail.com<br>
- 
+        <strong>Email:</strong> basmallahnoor@gmail.com
+    </p>
 
-    <p><a href="index.html">← Back to Home</a></p>
-
-    <div class="footer">
-        </strong> basmallahnoor@gmail.com | 
-    </div>
+    <a href="index.html" class="back-link">← Back to Home</a>
 </div>
+
+<footer>
+    <p><strong>Geni AI Global Hub</strong> | Email: basmallahnoor@gmail.com</p>
+</footer>
 </body>
 </html>
