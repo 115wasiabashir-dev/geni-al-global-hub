@@ -6,125 +6,227 @@
     <title>App Currency & Coins Packages - Geni AI Global Hub</title>
 
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.5; margin: 0; padding: 10px; background: #f4f6f8; color: #333; }
-        .container { max-width: 1000px; margin: auto; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .nav-links { margin-bottom: 15px; font-size: 13px; text-align: center; }
-        .nav-links a { color: #0284c7; text-decoration: none; font-weight: bold; }
-        .nav-links a:hover { text-decoration: underline; }
-        
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f0f0f0;
+            --text-muted: #aaaaaa;
+            --border-color: #262626;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 15px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 950px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        .nav-links {
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .nav-links a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 8px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+            color: var(--gold-light);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
         .intro-box { 
-            background: #eef2f3; 
-            padding: 12px; 
-            border-left: 5px solid #0284c7; 
-            border-radius: 6px; 
-            margin-bottom: 20px; 
-            font-size: 13px;
+            background: #161616; 
+            padding: 15px; 
+            border-left: 4px solid var(--gold-primary); 
+            border-radius: 0 8px 8px 0; 
+            margin-bottom: 25px; 
+            font-size: 0.93rem;
+            color: var(--text-muted);
+        }
+
+        .intro-box strong {
+            color: var(--text-main);
         }
 
         .system-title {
             text-align: center;
-            font-size: 20px;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #111;
-            margin: 5px 0 2px 0;
+            color: var(--gold-light);
+            margin: 15px 0 5px 0;
         }
+        
         .system-subtitle {
             text-align: center;
-            color: #555;
-            font-size: 12px;
-            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            font-style: italic;
         }
 
         /* Store Layout: Two Columns side-by-side */
         .store-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 20px;
             align-items: start;
         }
 
         .store-column-title {
             text-align: center;
-            font-size: 16px;
+            font-size: 1.15rem;
             font-weight: bold;
-            color: #111;
-            margin-bottom: 12px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid #ddd;
-            background: #f8fafc;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            background: #161616;
             border-radius: 4px;
         }
 
         /* Package Card */
         .pack-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            background: #161616;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             text-align: center;
+            transition: transform 0.2s ease;
         }
 
-        .pack-info h3 { margin: 0 0 2px 0; font-size: 14px; color: #111; }
+        .pack-card:hover {
+            border-color: var(--gold-dark);
+        }
+
+        .pack-info h3 { 
+            margin: 0 0 5px 0; 
+            font-size: 1.05rem; 
+            color: var(--gold-light); 
+        }
+
         .badge { 
             display: inline-block; 
-            padding: 1px 5px; 
-            background: #f1f5f9; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 3px; 
-            font-size: 10px; 
+            padding: 2px 8px; 
+            background: #222; 
+            border: 1px solid var(--border-color); 
+            border-radius: 4px; 
+            font-size: 0.75rem; 
             font-weight: bold; 
-            color: #475569; 
-            margin-bottom: 4px; 
+            color: var(--gold-primary); 
+            margin-bottom: 8px; 
             text-transform: uppercase; 
         }
-        .pack-details { font-size: 12px; font-weight: bold; color: #0f172a; margin: 2px 0; }
-        .bonus-text-coins { font-size: 11px; color: #dc2626; font-weight: bold; }
-        .bonus-text-currency { font-size: 11px; color: #0284c7; font-weight: bold; }
-        .total-text { font-size: 11px; color: #334155; margin-top: 2px; }
+
+        .pack-details { 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            color: var(--text-main); 
+            margin: 4px 0; 
+        }
+
+        .bonus-text-coins, .bonus-text-currency { 
+            font-size: 0.85rem; 
+            font-weight: bold; 
+            color: var(--gold-primary); 
+        }
+
+        .total-text { 
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            margin-top: 4px; 
+        }
 
         /* Price Box */
         .price-box {
-            background: #111;
-            color: #fff;
-            padding: 6px;
+            background: #0b0b0b;
+            color: var(--text-main);
+            padding: 8px;
             border-radius: 6px;
             text-align: center;
-            margin-top: 6px;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
         }
-        .price-usd { font-size: 12px; font-weight: bold; display: block; }
+
+        .price-usd { 
+            font-size: 0.9rem; 
+            font-weight: bold; 
+            color: var(--gold-light); 
+            display: block; 
+        }
 
         .note-box {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #0c4a6e;
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--gold-primary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .note-box strong {
+            color: var(--text-main);
         }
 
         footer { 
-            background: #111; 
-            color: #fff; 
-            padding: 15px; 
+            background: #050505; 
+            color: var(--text-muted); 
+            padding: 20px; 
             text-align: center; 
-            margin-top: 25px; 
-            font-size: 12px; 
+            margin-top: 40px; 
+            font-size: 13px; 
             border-radius: 8px; 
+            border: 1px solid var(--border-color);
+        }
+
+        footer strong {
+            color: var(--gold-primary);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 5px; font-size: 22px;">App Currency & Coins Packages</h1>
-        
+        <h1>App Currency & Coins Packages</h1>
+
         <div class="nav-links">
-            <a href="index.html">← Back to Home</a> &nbsp;|&nbsp;
-            <a href="business-model.html">Business Model</a> &nbsp;|&nbsp;
-            <a href="contact.html">Contact Us</a>
+            <a href="index.html">← Back to Home</a> |
+            <a href="business-model.html">Business Model</a> |
+            <a href="contact.html">Contact Us</a> |
+            <a href="ownership.html">Ownership</a>
         </div>
 
         <div class="intro-box">
@@ -132,10 +234,10 @@
         </div>
 
         <div class="system-title">Coins & Currency Store Showcase</div>
-        <div class="system-subtitle">Amne Samne (Side-by-Side) Comparison View</div>
+        <div class="system-subtitle">Side-by-Side Comparison View</div>
 
         <div class="store-grid">
-            
+
             <!-- COINS COLUMN -->
             <div>
                 <div class="store-column-title">Coins</div>
@@ -283,20 +385,10 @@
             • Both Coins and Currency can be used interchangeably for image, video, and cloning features.<br>
             • App Currency can also be earned or given free, whereas Coins are purchased as one-time packages. No subscriptions.
         </div>
-
-        <div style="margin-top: 25px; text-align: center;">
-            <p>
-                <a href="Geni_AI_Global_Hub_Business_Model_Pricing.pdf" target="_blank" 
-                   style="padding: 10px 18px; background: #0284c7; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 13px;">
-                   View Business Model & Pricing PDF
-                </a>
-            </p>
-        </div>
     </div>
 
     <footer>
-        <p><strong>Geni AI Global Hub</strong></p>
-        <p>Email: basmallahnoor@gmail.com | 
+        <p><strong>Geni AI Global Hub</strong> | Email: basmallahnoor@gmail.com</p>
     </footer>
 
 </body>
