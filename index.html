@@ -6,25 +6,201 @@
     <title>Geni AI Global Hub - Home</title>
 
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background: #f9f9f9; color: #333; }
-        .container { max-width: 900px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { max-width: 100px; height: auto; border-radius: 6px; border: 1px solid #ddd; }
-        h1, h2, h3 { color: #2c3e50; text-align: center; }
-        h1 { margin-top: 10px; }
-        .screenshot-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 30px 0; }
-        .screenshot-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .screenshot-card img { width: 100%; max-height: 180px; object-fit: contain; border-radius: 6px; border: 1px solid #eee; background: #000; }
-        .screenshot-card p { font-size: 13px; color: #555; margin-top: 8px; font-weight: bold; }
-        .business-box { background: #f0f9ff; border-left: 5px solid #0284c7; padding: 22px; margin: 25px 0; border-radius: 6px; }
-        .use-case-box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 22px; margin: 25px 0; border-radius: 6px; }
-        .payment-box { background: #ecfdf5; border-left: 5px solid #16a34a; padding: 22px; margin: 25px 0; border-radius: 6px; }
-        .delivery-box { background: #fff7ed; border-left: 5px solid #f97316; padding: 22px; margin: 25px 0; border-radius: 6px; }
-        .nav-links a { color: #0284c7; font-weight: bold; text-decoration: none; }
-        .nav-links { margin-top: 35px; padding-top: 20px; border-top: 1px solid #eee; }
-        .nav-links a { display: block; margin-bottom: 10px; }
-        footer { background: #111; color: #fff; padding: 20px; text-align: center; margin-top: 40px; font-size: 14px; border-radius: 8px; }
-        .highlight { font-weight: bold; }
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --gold-primary: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-dark: #aa8c2c;
+            --text-main: #f0f0f0;
+            --text-muted: #999999;
+            --border-color: #222222;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 30px 15px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-container img {
+            max-width: 90px;
+            height: auto;
+            border-radius: 50%;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        h2, h3 {
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        p, li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .tagline {
+            text-align: center;
+            color: var(--gold-light);
+            font-style: italic;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 25px;
+        }
+
+        /* چھوٹی اور خوبصورت تھمب نیل گیلری */
+        .screenshot-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .screenshot-card {
+            background: #181818;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+            width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background: #000;
+        }
+
+        .screenshot-card p {
+            font-size: 11px;
+            color: var(--gold-light);
+            margin: 6px 0 2px 0;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-box {
+            background: #151515;
+            border-left: 3px solid var(--gold-primary);
+            padding: 18px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .highlight {
+            color: var(--gold-light);
+            font-weight: bold;
+        }
+
+        ol {
+            padding-left: 18px;
+            margin: 0;
+        }
+
+        ol li {
+            margin-bottom: 6px;
+        }
+
+        .nav-links {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .nav-links h3 {
+            margin-bottom: 15px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 5px 10px;
+            color: var(--gold-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #050505;
+            color: var(--text-muted);
+            padding: 18px;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        footer strong {
+            color: var(--gold-primary);
+        }
     </style>
 </head>
 <body>
@@ -32,94 +208,84 @@
 <div class="container">
 
     <div class="logo-container">
-        <!-- گولڈن GG چراغ والا لوگو -->
         <a href="IMG-20260830-WA0000(1).jpg" target="_blank">
             <img src="IMG-20260830-WA0000(1).jpg" alt="Geni AI Global Hub Logo">
         </a>
         <h1>Geni AI Global Hub</h1>
-        <p style="color: #666; font-style: italic;">"Your Creative Command"</p>
+        <p class="tagline">"Your Creative Command"</p>
     </div>
 
-    <p style="text-align: center;">
-        Welcome to Geni AI Global Hub, a digital platform providing multi-modal artificial intelligence tools and creative digital services for customers.
+    <p class="intro-text">
+        Welcome to Geni AI Global Hub, an elite digital platform delivering advanced multi-modal artificial intelligence tools and cutting-edge creative digital services.
     </p>
 
     <div class="section">
         <h2>App Interface & Platform Preview</h2>
-        <p style="text-align: center; color: #555; font-size: 14px;">Click on any preview image below to view it in full size:</p>
+        <p style="text-align: center; font-size: 13px; margin-bottom: 15px;">Click on any preview card below to view the full-size interface:</p>
 
+        <!-- چھوٹی اور بہترین تصاویر والی گیلری -->
         <div class="screenshot-gallery">
             <div class="screenshot-card">
                 <a href="Screenshot_20260830-093912.jpg" target="_blank">
                     <img src="Screenshot_20260830-093912.jpg" alt="App Home Dashboard">
                 </a>
-                <p>App Home Dashboard</p>
+                <p>Dashboard</p>
             </div>
             <div class="screenshot-card">
                 <a href="Screenshot_20260830-094109.jpg" target="_blank">
                     <img src="Screenshot_20260830-094109.jpg" alt="AI Image Generation Studio">
                 </a>
-                <p>AI Image Generation Studio</p>
+                <p>AI Studio</p>
             </div>
             <div class="screenshot-card">
                 <a href="Screenshot_20260830-094345.jpg" target="_blank">
                     <img src="Screenshot_20260830-094345.jpg" alt="Audio & Voice Library">
                 </a>
-                <p>Audio & Voice Library</p>
+                <p>Audio Library</p>
             </div>
         </div>
     </div>
 
-    <div class="business-box">
+    <div class="info-box">
         <h2>Business Model & Payment Gateway Use Case</h2>
-        <p>Geni AI Global Hub is a digital artificial intelligence platform that provides AI-powered creative generation services. Customers can use our digital tools to create AI-generated images, videos, audio, voice content, and other creative digital outputs.</p>
-        <p>Our business operates through a <span class="highlight">digital credit model</span>. Customers purchase available digital credit packages (AI Coins and App Currency) and use those credits within the platform to access AI-powered generation features.</p>
-        <p><span class="highlight">The intended use of the payment gateway is to accept customer payments for our digital AI services and digital credit packages (AI Coins and App Currency).</span></p>
-        <p>There are no subscription plans. Customers only purchase one-time credit packages.</p>
+        <p>Geni AI Global Hub is a digital artificial intelligence ecosystem providing powerful AI-driven creative generation services. Our customers utilize platform tools to craft professional AI images, dynamic videos, pristine audio, expressive voice content, and unique digital assets.</p>
+        <p>We operate on a secure <span class="highlight">digital credit architecture</span>. Clients purchase flexible digital credit packages (AI Coins and App Currency) to unlock and execute specialized AI generation workflows seamlessly.</p>
+        <p><span class="highlight">Our payment gateway integration is dedicated strictly to processing customer transactions for digital AI services and credit bundles (AI Coins and App Currency).</span> There are no recurring subscription fees; all purchases are transparent, one-time credit packages.</p>
     </div>
 
-    <div class="use-case-box">
-        <h3>How Customers Use Our Platform (Complete Customer Journey)</h3>
+    <div class="info-box">
+        <h3>How Customers Use Our Platform (Complete Journey)</h3>
         <ol>
-            <li>Customers visit Geni AI Global Hub and browse available AI services and digital credit packages (AI Coins and App Currency).</li>
-            <li>Customers select the desired credit package.</li>
-            <li>Customers proceed to checkout and select their preferred payment option.</li>
-            <li>Payment is processed through the available payment gateway, including Rapid Gateway where applicable.</li>
-            <li>After successful payment confirmation, the purchased digital credits (AI Coins or App Currency) are instantly credited to the customer’s account wallet.</li>
-            <li>Customers use their purchased credits inside the platform to generate AI images, videos, audio, or voice content.</li>
-            <li>Generated content is delivered digitally and made available inside the customer’s account dashboard.</li>
+            <li>Users visit Geni AI Global Hub to explore our comprehensive suite of AI features and digital credit packages.</li>
+            <li>Users select their preferred credit bundle based on their generation requirements.</li>
+            <li>Users proceed to secure checkout and select their payment option.</li>
+            <li>Payments are processed securely via the integrated payment gateway, including Rapid Gateway where applicable.</li>
+            <li>Upon instant payment confirmation, purchased credits are immediately deposited into the user's wallet.</li>
+            <li>Users spend these credits to generate advanced AI images, videos, audio, or speech outputs.</li>
         </ol>
     </div>
 
-    <div class="payment-box">
-        <h3>Payment Gateway Purpose</h3>
-        <p>Rapid Gateway is used as a payment processing method for customer purchases on Geni AI Global Hub. The gateway is intended solely for payments related to our digital AI services and digital credit packages (AI Coins and App Currency).</p>
-        <p>No physical products are sold. All payments are for digital credits only.</p>
-    </div>
-
-    <div class="delivery-box">
-        <h3>Digital Delivery</h3>
-        <p>Geni AI Global Hub provides digital services only. There is no physical shipping or physical product delivery. Purchased credits are delivered electronically and instantly to the customer’s account after successful payment confirmation.</p>
+    <div class="info-box">
+        <h3>Payment Gateway & Digital Delivery Purpose</h3>
+        <p>Rapid Gateway functions as the core payment processor for customer transactions on Geni AI Global Hub, utilized exclusively for digital credits (AI Coins and App Currency). No physical items or merchandise are sold. All purchased credits and generated content are transmitted electronically and instantly to the customer profile following payment verification.</p>
     </div>
 
     <div class="nav-links">
         <h3>Quick Links & Policies</h3>
-        <a href="business-model.html">→ Business Model & Use Case</a>
-        <a href="pricing.html">→ App Currency & Coins Packages</a>
+        <a href="business-model.html">→ Business Model</a>
+        <a href="pricing.html">→ Pricing Packages</a>
         <a href="privacy.html">→ Privacy Policy</a>
-        <a href="terms.html">→ Terms and Conditions</a>
+        <a href="terms.html">→ Terms & Conditions</a>
         <a href="refund.html">→ Refund Policy</a>
-        <a href="shipping.html">→ Shipping & Delivery Policy</a>
+        <a href="shipping.html">→ Shipping Policy</a>
         <a href="contact.html">→ Contact Us</a>
-        <a href="ownership.html">→ Ownership Statement</a>
-
+        <a href="ownership.html">→ Ownership</a>
     </div>
 
 </div>
 
 <footer>
-    <p><strong>Geni AI Global Hub</strong></p>
-    <p>Email: basmallahnoor@gmail.com</p>
+    <p><strong>Geni AI Global Hub</strong> | Email: basmallahnoor@gmail.com</p>
 </footer>
 
 </body>
