@@ -3,25 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geni AI - Purchase Store</title>
+  <title>Geni AI - Store</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
-    body { background: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; margin: 0; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #334155; }
-    h1 { font-size: 22px; color: #6366f1; margin: 0; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 15px; text-align: center; }
-    .price { font-size: 20px; font-weight: bold; color: #38bdf8; margin: 10px 0; }
-    .btn { background: #6366f1; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-    .btn:hover { background: #4f46e5; }
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #6366f1;
+      --accent-hover: #4f46e5;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 15px;
+      margin: 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+      color: var(--text-main);
+    }
+
+    .user-info {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .hidden { display: none !important; }
-    .user-info { background: #1e293b; padding: 12px 15px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #334155; }
-    .notice { text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 14px; }
+
+    /* Two column store layout */
+    .store-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .store-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text-main);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .package-card {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pkg-left {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pkg-title {
+      font-weight: bold;
+      font-size: 15px;
+      color: #0f172a;
+    }
+
+    .pkg-tag {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      width: fit-content;
+      font-weight: 600;
+    }
+
+    .pkg-details {
+      font-size: 13px;
+      color: #475569;
+      margin-top: 4px;
+    }
+
+    .pkg-right {
+      background: #000000;
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .pkg-price-usd {
+      font-size: 13px;
+      color: #cbd5e1;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    .pkg-price-pkr {
+      font-size: 13px;
+      font-weight: bold;
+      color: #4ade80;
+      margin-bottom: 8px;
+    }
+
+    .buy-btn {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      width: 100%;
+      padding: 6px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background: #e2e8f0;
+    }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Geni AI Store</h1>
+  <div class="header-container">
+    <h1>🛒 Store</h1>
     <div id="auth-area">
       <div id="g_id_onload"
          data-client_id="1021298502273-bdsucooa24a2pfdtckcicnq98o929jj2.apps.googleusercontent.com"
@@ -30,46 +173,24 @@
       </div>
       <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
     </div>
-  </header>
+  </div>
 
   <div id="user-box" class="user-info hidden">
     <div>Welcome, <span id="u-name" style="font-weight: bold; color: #38bdf8;"></span></div>
     <div>Coins: <span id="u-coins">0</span> | Credits: <span id="u-credits">0</span></div>
   </div>
 
-  <div class="notice">All prices are shown in Pakistani Rupees (PKR) only.</div>
+  <div class="store-grid">
+    <!-- Coins Column -->
+    <div>
+      <div class="column-title">Coins</div>
+      <div id="coins-container"></div>
+    </div>
 
-  <!-- Packages List -->
-  <div id="packages-list">
-    <!-- Coin 50 -->
-    <div class="card">
-      <h3>50 Coins</h3>
-      <div class="price">Rs. 280</div>
-      <button class="btn" onclick="buyPackage('coin_50')">Buy Now</button>
-    </div>
-    <!-- Coin 100 -->
-    <div class="card">
-      <h3>110 Coins (+10 Bonus)</h3>
-      <div class="price">Rs. 560</div>
-      <button class="btn" onclick="buyPackage('coin_100')">Buy Now</button>
-    </div>
-    <!-- Coin 300 -->
-    <div class="card">
-      <h3>330 Coins (+30 Bonus)</h3>
-      <div class="price">Rs. 1,120</div>
-      <button class="btn" onclick="buyPackage('coin_300')">Buy Now</button>
-    </div>
-    <!-- Currency 250 -->
-    <div class="card">
-      <h3>250 Credits</h3>
-      <div class="price">Rs. 280</div>
-      <button class="btn" onclick="buyPackage('currency_250')">Buy Now</button>
-    </div>
-    <!-- Currency 500 -->
-    <div class="card">
-      <h3>510 Credits (+10 Bonus)</h3>
-      <div class="price">Rs. 560</div>
-      <button class="btn" onclick="buyPackage('currency_500')">Buy Now</button>
+    <!-- Currency Column -->
+    <div>
+      <div class="column-title">Currency</div>
+      <div id="currency-container"></div>
     </div>
   </div>
 
@@ -77,13 +198,67 @@
     const WORKER_URL = 'https://geni-ai-backend.wasiabashir115.workers.dev';
     let currentUser = null;
 
+    const coinPackages = [
+      { id: 'coin_50', title: '$0.99 Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', usd: '$0.99', pkr: 'PKR 280' },
+      { id: 'coin_100', title: '$1.99 Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', usd: '$1.99', pkr: 'PKR 560' },
+      { id: 'coin_300', title: '$3.99 Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', usd: '$3.99', pkr: 'PKR 1120' },
+      { id: 'coin_800', title: '$9.99 Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', usd: '$9.99', pkr: 'PKR 2800' },
+      { id: 'coin_1500', title: '$17.99 Pack', tag: 'Ultra', main: '1500 Coins', bonus: 'Bonus: +180', total: 'Total: 1680', usd: '$17.99', pkr: 'PKR 5040' },
+      { id: 'coin_2500', title: '$29.99 Pack', tag: 'Max', main: '2500 Coins', bonus: 'Bonus: +300', total: 'Total: 2800', usd: '$29.99', pkr: 'PKR 8400' }
+    ];
+
+    const currencyPackages = [
+      { id: 'currency_250', title: '$0.99 Pack', tag: 'Base', main: '250 Credits', bonus: 'Bonus: +0', total: 'Total: 250 Credits', usd: '$0.99', pkr: 'PKR 280' },
+      { id: 'currency_500', title: '$1.99 Pack', tag: 'Starter', main: '500 Credits', bonus: 'Bonus: +10', total: 'Total: 510 Credits', usd: '$1.99', pkr: 'PKR 560' },
+      { id: 'currency_1500', title: '$3.99 Pack', tag: 'Pro', main: '1500 Credits', bonus: 'Bonus: +50', total: 'Total: 1550 Credits', usd: '$3.99', pkr: 'PKR 1120' },
+      { id: 'currency_4000', title: '$9.99 Pack', tag: 'Mega', main: '4000 Credits', bonus: 'Bonus: +150', total: 'Total: 4150 Credits', usd: '$9.99', pkr: 'PKR 2800' },
+      { id: 'currency_7500', title: '$17.99 Pack', tag: 'Ultra', main: '7500 Credits', bonus: 'Bonus: +300', total: 'Total: 7800 Credits', usd: '$17.99', pkr: 'PKR 5040' },
+      { id: 'currency_12500', title: '$29.99 Pack', tag: 'Max', main: '12500 Credits', bonus: 'Bonus: +500', total: 'Total: 13000 Credits', usd: '$29.99', pkr: 'PKR 8400' }
+    ];
+
     window.addEventListener('DOMContentLoaded', () => {
+      renderPackages();
       const savedUser = localStorage.getItem('geni_user');
       if (savedUser) {
         currentUser = JSON.parse(savedUser);
         showUser(currentUser);
       }
     });
+
+    function renderPackages() {
+      const coinHTML = coinPackages.map(p => `
+        <div class="package-card">
+          <div class="pkg-left">
+            <div class="pkg-title">${p.title}</div>
+            <div class="pkg-tag">${p.tag}</div>
+            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
+          </div>
+          <div class="pkg-right">
+            <div class="pkg-price-usd">${p.usd}</div>
+            <div class="pkg-price-pkr">${p.pkr}</div>
+            <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
+          </div>
+        </div>
+      `).join('');
+
+      const currencyHTML = currencyPackages.map(p => `
+        <div class="package-card">
+          <div class="pkg-left">
+            <div class="pkg-title">${p.title}</div>
+            <div class="pkg-tag">${p.tag}</div>
+            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
+          </div>
+          <div class="pkg-right">
+            <div class="pkg-price-usd">${p.usd}</div>
+            <div class="pkg-price-pkr">${p.pkr}</div>
+            <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('coins-container').innerHTML = coinHTML;
+      document.getElementById('currency-container').innerHTML = currencyHTML;
+    }
 
     async function handleLogin(response) {
       try {
