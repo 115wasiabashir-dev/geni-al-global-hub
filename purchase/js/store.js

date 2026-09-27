@@ -110,14 +110,20 @@ function renderPackages(containerId, packages, type) {
   container.innerHTML = packages.map((pkg) => `
     <article class="package-card">
       <h3>${pkg.total} ${type}</h3>
-      <div class="amount">${pkg.amount}</div>
+
+      <div class="amount">
+        ${pkg.amount}
+      </div>
+
       <div class="bonus">
         ${pkg.bonus > 0 ? `+${pkg.bonus} Bonus` : 'No Bonus'}
       </div>
+
       <div class="price">
         $${pkg.price_usd.toFixed(2)}
         <span> / PKR ${pkg.price_pkr}</span>
       </div>
+
       <button
         type="button"
         data-package-id="${pkg.id}"
@@ -179,7 +185,6 @@ function loadStoreUser() {
   const user = getCurrentUser();
 
   if (!user?.user_id) {
-    window.location.href = 'login.html';
     return;
   }
 
@@ -193,6 +198,19 @@ function loadStoreUser() {
 
   if (emailElement) {
     emailElement.textContent = user.email || '';
+  }
+
+  const coinBalance = document.getElementById('coin-balance');
+  const currencyBalance =
+    document.getElementById('currency-balance');
+
+  if (coinBalance) {
+    coinBalance.textContent = user.coins ?? 0;
+  }
+
+  if (currencyBalance) {
+    currencyBalance.textContent =
+      user.currency_balance ?? 0;
   }
 }
 
