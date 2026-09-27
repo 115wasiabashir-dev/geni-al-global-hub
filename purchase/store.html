@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geni AI Store</title>
+  <link rel="stylesheet" href="css/purchase.css">
+</head>
+<body>
+
+  <main class="purchase-page">
+    <header class="store-header">
+      <div>
+        <h1>Geni AI Store</h1>
+        <p>Choose a package to continue</p>
+      </div>
+
+      <button id="logout-button" type="button">
+        Logout
+      </button>
+    </header>
+
+    <section class="account-section">
+      <div>
+        <span class="label">Signed in as</span>
+        <strong id="user-name">Loading...</strong>
+        <span id="user-email"></span>
+      </div>
+    </section>
+
+    <section class="balance-section">
+      <div class="balance-card">
+        <span>Coins</span>
+        <strong id="coin-balance">0</strong>
+      </div>
+
+      <div class="balance-card">
+        <span>Credits</span>
+        <strong id="currency-balance">0</strong>
+      </div>
+    </section>
+
+    <section class="packages-section">
+      <h2>Coin Packages</h2>
+
+      <div id="coin-packages" class="packages-grid"></div>
+
+      <h2>Credit Packages</h2>
+
+      <div id="currency-packages" class="packages-grid"></div>
+    </section>
+
+    <div id="payment-message" class="payment-message"></div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/store.js"></script>
+
+</body>
+</html>
