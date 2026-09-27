@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Geni AI - Store</title>
-  <!-- Google Identity Services SDK -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
@@ -193,20 +192,13 @@
   <div class="header-container">
     <h1>🛒 Store</h1>
     <div id="auth-area">
-      <!-- Google Login Button Container (Identical to delete.html style) -->
+      <!-- Updated with your new Google Client ID -->
       <div id="g_id_onload"
-         data-client_id="1021298502273-bdsucooa24a2pfdtckcicnq98o929jj2.apps.googleusercontent.com"
-         data-callback="handleCredentialResponse"
+         data-client_id="677647126746-prug504v3o3as4moue8smkprtaptprm4.apps.googleusercontent.com"
+         data-callback="handleLogin"
          data-auto_prompt="false">
       </div>
-      <div class="g_id_signin"
-         data-type="standard"
-         data-shape="rectangular"
-         data-theme="filled_black"
-         data-text="continue_with"
-         data-size="large"
-         data-logo_alignment="left">
-      </div>
+      <div class="g_id_signin" data-type="standard" data-shape="pill" data-size="medium"></div>
     </div>
   </div>
 
@@ -245,7 +237,6 @@
   <script>
     const WORKER_URL = 'https://geni-ai-backend.wasiabashir115.workers.dev';
     let currentUser = null;
-    let googleIdToken = null;
 
     const coinPackages = [
       { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 280' },
@@ -316,14 +307,12 @@
       document.getElementById('custom-modal').classList.add('hidden');
     }
 
-    // Identical credential response handler as delete.html
-    async function handleCredentialResponse(response) {
-      googleIdToken = response.credential;
+    async function handleLogin(response) {
       try {
         const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken: googleIdToken })
+          body: JSON.stringify({ idToken: response.credential })
         });
         const data = await res.json();
         if (data.success) {
