@@ -12,15 +12,13 @@
       --border-color: #334155;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-color: #6366f1;
-      --accent-hover: #4f46e5;
     }
 
     body {
       background: var(--bg-color);
       color: var(--text-main);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 15px;
+      padding: 10px;
       margin: 0;
     }
 
@@ -30,13 +28,13 @@
       align-items: center;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 12px 20px;
+      padding: 12px 15px;
       border-radius: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     h1 {
-      font-size: 20px;
+      font-size: 18px;
       margin: 0;
       color: var(--text-main);
     }
@@ -44,10 +42,10 @@
     .user-info {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 12px 15px;
+      padding: 10px 12px;
       border-radius: 8px;
-      font-size: 14px;
-      margin-bottom: 20px;
+      font-size: 13px;
+      margin-bottom: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -55,38 +53,32 @@
 
     .hidden { display: none !important; }
 
-    /* Two column store layout */
+    /* Side-by-side layout */
     .store-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    @media (max-width: 768px) {
-      .store-grid {
-        grid-template-columns: 1fr;
-      }
+      gap: 8px;
     }
 
     .column-title {
       text-align: center;
-      font-size: 18px;
+      font-size: 15px;
       font-weight: bold;
       color: var(--text-main);
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 15px;
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
     }
 
     .package-card {
       background: #ffffff;
       color: #0f172a;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -95,53 +87,47 @@
     .pkg-left {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
+      max-width: 55%;
     }
 
     .pkg-title {
       font-weight: bold;
-      font-size: 15px;
+      font-size: 12px;
       color: #0f172a;
     }
 
     .pkg-tag {
       background: #e2e8f0;
       color: #334155;
-      font-size: 11px;
-      padding: 2px 6px;
-      border-radius: 4px;
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 3px;
       width: fit-content;
       font-weight: 600;
     }
 
     .pkg-details {
-      font-size: 13px;
+      font-size: 10px;
       color: #475569;
-      margin-top: 4px;
+      margin-top: 2px;
+      line-height: 1.2;
     }
 
     .pkg-right {
       background: #000000;
       color: #ffffff;
-      border-radius: 10px;
-      padding: 10px;
+      border-radius: 6px;
+      padding: 8px;
       text-align: center;
-      min-width: 100px;
-    }
-
-    .pkg-price-usd {
-      font-size: 13px;
-      color: #cbd5e1;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 4px;
-      margin-bottom: 6px;
+      min-width: 75px;
     }
 
     .pkg-price-pkr {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
       color: #4ade80;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .buy-btn {
@@ -149,10 +135,10 @@
       color: #000000;
       border: none;
       width: 100%;
-      padding: 6px;
-      border-radius: 6px;
+      padding: 4px;
+      border-radius: 4px;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 10px;
       cursor: pointer;
     }
 
@@ -171,7 +157,7 @@
          data-callback="handleLogin"
          data-auto_prompt="false">
       </div>
-      <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+      <div class="g_id_signin" data-type="standard" data-shape="pill" data-size="medium"></div>
     </div>
   </div>
 
@@ -199,21 +185,21 @@
     let currentUser = null;
 
     const coinPackages = [
-      { id: 'coin_50', title: '$0.99 Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', usd: '$0.99', pkr: 'PKR 280' },
-      { id: 'coin_100', title: '$1.99 Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', usd: '$1.99', pkr: 'PKR 560' },
-      { id: 'coin_300', title: '$3.99 Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', usd: '$3.99', pkr: 'PKR 1120' },
-      { id: 'coin_800', title: '$9.99 Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', usd: '$9.99', pkr: 'PKR 2800' },
-      { id: 'coin_1500', title: '$17.99 Pack', tag: 'Ultra', main: '1500 Coins', bonus: 'Bonus: +180', total: 'Total: 1680', usd: '$17.99', pkr: 'PKR 5040' },
-      { id: 'coin_2500', title: '$29.99 Pack', tag: 'Max', main: '2500 Coins', bonus: 'Bonus: +300', total: 'Total: 2800', usd: '$29.99', pkr: 'PKR 8400' }
+      { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 280' },
+      { id: 'coin_100', title: 'Starter Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', pkr: 'PKR 560' },
+      { id: 'coin_300', title: 'Pro Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', pkr: 'PKR 1120' },
+      { id: 'coin_800', title: 'Mega Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', pkr: 'PKR 2800' },
+      { id: 'coin_1500', title: 'Ultra Pack', tag: 'Ultra', main: '1500 Coins', bonus: 'Bonus: +180', total: 'Total: 1680', pkr: 'PKR 5040' },
+      { id: 'coin_2500', title: 'Max Pack', tag: 'Max', main: '2500 Coins', bonus: 'Bonus: +300', total: 'Total: 2800', pkr: 'PKR 8400' }
     ];
 
     const currencyPackages = [
-      { id: 'currency_250', title: '$0.99 Pack', tag: 'Base', main: '250 Credits', bonus: 'Bonus: +0', total: 'Total: 250 Credits', usd: '$0.99', pkr: 'PKR 280' },
-      { id: 'currency_500', title: '$1.99 Pack', tag: 'Starter', main: '500 Credits', bonus: 'Bonus: +10', total: 'Total: 510 Credits', usd: '$1.99', pkr: 'PKR 560' },
-      { id: 'currency_1500', title: '$3.99 Pack', tag: 'Pro', main: '1500 Credits', bonus: 'Bonus: +50', total: 'Total: 1550 Credits', usd: '$3.99', pkr: 'PKR 1120' },
-      { id: 'currency_4000', title: '$9.99 Pack', tag: 'Mega', main: '4000 Credits', bonus: 'Bonus: +150', total: 'Total: 4150 Credits', usd: '$9.99', pkr: 'PKR 2800' },
-      { id: 'currency_7500', title: '$17.99 Pack', tag: 'Ultra', main: '7500 Credits', bonus: 'Bonus: +300', total: 'Total: 7800 Credits', usd: '$17.99', pkr: 'PKR 5040' },
-      { id: 'currency_12500', title: '$29.99 Pack', tag: 'Max', main: '12500 Credits', bonus: 'Bonus: +500', total: 'Total: 13000 Credits', usd: '$29.99', pkr: 'PKR 8400' }
+      { id: 'currency_250', title: 'Base Pack', tag: 'Base', main: '250 Credits', bonus: 'Bonus: +0', total: 'Total: 250 Credits', pkr: 'PKR 280' },
+      { id: 'currency_500', title: 'Starter Pack', tag: 'Starter', main: '500 Credits', bonus: 'Bonus: +10', total: 'Total: 510 Credits', pkr: 'PKR 560' },
+      { id: 'currency_1500', title: 'Pro Pack', tag: 'Pro', main: '1500 Credits', bonus: 'Bonus: +50', total: 'Total: 1550 Credits', pkr: 'PKR 1120' },
+      { id: 'currency_4000', title: 'Mega Pack', tag: 'Mega', main: '4000 Credits', bonus: 'Bonus: +150', total: 'Total: 4150 Credits', pkr: 'PKR 2800' },
+      { id: 'currency_7500', title: 'Ultra Pack', tag: 'Ultra', main: '7500 Credits', bonus: 'Bonus: +300', total: 'Total: 7800 Credits', pkr: 'PKR 5040' },
+      { id: 'currency_12500', title: 'Max Pack', tag: 'Max', main: '12500 Credits', bonus: 'Bonus: +500', total: 'Total: 13000 Credits', pkr: 'PKR 8400' }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -234,7 +220,6 @@
             <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
           </div>
           <div class="pkg-right">
-            <div class="pkg-price-usd">${p.usd}</div>
             <div class="pkg-price-pkr">${p.pkr}</div>
             <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
           </div>
@@ -249,7 +234,6 @@
             <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
           </div>
           <div class="pkg-right">
-            <div class="pkg-price-usd">${p.usd}</div>
             <div class="pkg-price-pkr">${p.pkr}</div>
             <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
           </div>
