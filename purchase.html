@@ -400,14 +400,27 @@
       }
     }
 
-    // لاگ آؤٹ فنکشن جو لوکل سٹوریج صاف کر کے دوبارہ لاگ ان کا آپشن دے گا
+    // مکمل لاگ آؤٹ اور کیش ریسیٹ فنکشن
     function handleLogout() {
-      localStorage.removeItem('geni_user');
+      // 1. لوکل اسٹوریج سے سارا ڈیٹا اڑا دیں
+      localStorage.clear();
       currentUser = null;
+
+      // 2. گوگل سائن ان کا آٹو سلیکٹ اور سیشن ڈس ایبل کریں
+      try {
+        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      // 3. UI کو چھپا دیں
       document.getElementById('user-box').classList.add('hidden');
       document.getElementById('auth-area').classList.remove('hidden');
-      // گوگل سائن ان بٹن کو ری رینڈر کرنے کے لیے پیج ریفریش بھی کیا جا سکتا ہے
-      location.reload();
+
+      // 4. براؤزر کے کیش کو بائی پاس کرتے ہوئے مکمل پیج ہارڈ رিলোڈ کریں
+      window.location.replace(window.location.pathname + '?nocache=' + new Date().getTime());
     }
 
     function showUser(user) {
