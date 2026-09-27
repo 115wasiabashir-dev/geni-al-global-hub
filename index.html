@@ -36,7 +36,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
         }
 
-        /* نیا اسٹور ہیڈر بٹن اسٹাইল */
+        /* نیا اسٹور ہیڈر بٹن اسٹائل (آمنے سامنے چراغ کے ساتھ) */
         .top-header-bar {
             display: flex;
             justify-content: space-between;
@@ -44,6 +44,11 @@
             margin-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
+        }
+
+        .header-lamp-left, .header-lamp-right {
+            font-size: 1.3rem;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
         }
 
         .store-btn-top {
@@ -249,12 +254,13 @@
 
 <div class="container">
 
-    <!-- اوپر ہیڈر بار جس میں جینی اسٹور اور کارٹ آئیکن ہے -->
+    <!-- اوپر ہیڈر بار جس کے دونوں کونوں میں آمنے سامنے چراغ اور درمیان میں اسٹور کا بٹن ہے -->
     <div class="top-header-bar">
-        <span style="font-size: 0.850rem; color: var(--gold-light);">Geni AI Global Hub</span>
+        <span class="header-lamp-left">🪔</span>
         <a href="purchase.html" class="store-btn-top">
             🛒 جینی اسٹور (Geni Store)
         </a>
+        <span class="header-lamp-right">🪔</span>
     </div>
 
     <!-- لوگو والی تصویر -->
