@@ -1,438 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geni AI - Store</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    :root {
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --border-color: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+import { jwtVerify, createRemoteJWKSet } from 'jose';
+
+const GOOGLE_JWKS = createRemoteJWKSet(
+  new URL('https://www.googleapis.com/oauth2/v3/certs')
+);
+
+// گوگل ٹوکن ویریفیکیشن فنکشن (ویب اور موبائل دونوں کلائنٹ آئی ڈیز کے لیے)
+async function verifyWebGoogleToken(idToken, clientIds) {
+  if (!idToken) {
+    throw new Error('Missing Google ID token');
+  }
+
+  const { payload } = await jwtVerify(idToken, GOOGLE_JWKS, {
+    issuer: [
+      'https://accounts.google.com',
+      'accounts.google.com',
+    ],
+    audience: clientIds,
+  });
+
+  if (!payload.sub) {
+    throw new Error('Invalid Google account');
+  }
+
+  return {
+    userId: payload.sub,
+    email: payload.email ?? null,
+    name: payload.name ?? null,
+    photoUrl: payload.picture ?? null,
+  };
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    // CORS Headers
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
     }
 
-    body {
-      background: var(--bg-color);
-      color: var(--text-main);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 10px;
-      margin: 0;
-    }
-
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 12px 15px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-
-    h1 {
-      font-size: 18px;
-      margin: 0;
-      color: var(--text-main);
-    }
-
-    .user-info {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 12px 15px;
-      border-radius: 12px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .user-profile-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #38bdf8;
-    }
-
-    .user-details {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .user-stats-row {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid var(--border-color);
-      padding-top: 8px;
-      margin-top: 4px;
-    }
-
-    .hidden { display: none !important; }
-
-    /* Side-by-side layout */
-    .store-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .column-title {
-      text-align: center;
-      font-size: 15px;
-      font-weight: bold;
-      color: var(--text-main);
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 8px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-
-    .package-card {
-      background: #ffffff;
-      color: #0f172a;
-      border-radius: 8px;
-      padding: 8px;
-      margin-bottom: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pkg-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      max-width: 55%;
-    }
-
-    .pkg-title {
-      font-weight: bold;
-      font-size: 12px;
-      color: #0f172a;
-    }
-
-    .pkg-tag {
-      background: #e2e8f0;
-      color: #334155;
-      font-size: 9px;
-      padding: 1px 4px;
-      border-radius: 3px;
-      width: fit-content;
-      font-weight: 600;
-    }
-
-    .pkg-details {
-      font-size: 10px;
-      color: #475569;
-      margin-top: 2px;
-      line-height: 1.2;
-    }
-
-    .pkg-right {
-      background: #000000;
-      color: #ffffff;
-      border-radius: 6px;
-      padding: 8px;
-      text-align: center;
-      min-width: 75px;
-    }
-
-    .pkg-price-pkr {
-      font-size: 12px;
-      font-weight: bold;
-      color: #4ade80;
-      margin-bottom: 6px;
-    }
-
-    .buy-btn {
-      background: #ffffff;
-      color: #000000;
-      border: none;
-      width: 100%;
-      padding: 4px;
-      border-radius: 4px;
-      font-weight: bold;
-      font-size: 10px;
-      cursor: pointer;
-    }
-
-    .buy-btn:hover {
-      background: #e2e8f0;
-    }
-
-    /* Custom Modern Modal Popup */
-    #custom-modal {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .modal-content {
-      background: #1e293b;
-      border: 1px solid #334155;
-      padding: 20px;
-      border-radius: 12px;
-      width: 85%;
-      max-width: 320px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    }
-    .modal-text {
-      font-size: 14px;
-      color: #f8fafc;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .modal-btn {
-      background: #6366f1;
-      color: white;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 13px;
-    }
-    .modal-btn:hover {
-      background: #4f46e5;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="header-container">
-    <h1>🛒 Store</h1>
-    <div id="auth-area">
-      <div id="g_id_onload"
-         data-client_id="677647126746-prug504v3o3as4moue8smkprtaptprm4.apps.googleusercontent.com"
-         data-callback="handleLogin"
-         data-auto_prompt="false">
-      </div>
-      <div class="g_id_signin" data-type="standard" data-shape="pill" data-size="medium"></div>
-    </div>
-  </div>
-
-  <!-- User Profile & Info Box (Initially Hidden, shown after login) -->
-  <div id="user-box" class="user-info hidden">
-    <div class="user-profile-row">
-      <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
-      <div class="user-details">
-        <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
-        <div><b>Email:</b> <span id="u-email" style="color: var(--text-muted); font-size: 11px;"></span></div>
-        <div><b>User ID:</b> <span id="u-id" style="color: var(--text-muted); font-size: 10px;"></span></div>
-      </div>
-    </div>
-    <div class="user-stats-row">
-      <div>Coins: <span id="u-coins" style="font-weight: bold; color: #4ade80;">0</span></div>
-      <div>Credits: <span id="u-credits" style="font-weight: bold; color: #facc15;">0</span></div>
-    </div>
-  </div>
-
-  <!-- Instruction Banner -->
-  <div style="background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">
-    💡 <b>Note:</b> Please make sure you are logged in with Google first. If you are using the mobile app, you can also log in directly by downloading and opening the app.
-  </div>
-
-  <div class="store-grid">
-    <!-- Coins Column -->
-    <div>
-      <div class="column-title">Coins</div>
-      <div id="coins-container"></div>
-    </div>
-
-    <!-- Currency Column -->
-    <div>
-      <div class="column-title">Currency</div>
-      <div id="currency-container"></div>
-    </div>
-  </div>
-
-  <!-- Custom Popup Modal (Hidden by default) -->
-  <div id="custom-modal" class="hidden">
-    <div class="modal-content">
-      <div id="modal-message" class="modal-text">Please log in with Google first.</div>
-      <button class="modal-btn" onclick="closeModal()">OK</button>
-    </div>
-  </div>
-
-  <script>
-    const WORKER_URL = 'https://geni-ai-backend.wasiabashir115.workers.dev';
-    let currentUser = null;
-
-    const coinPackages = [
-      { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 280' },
-      { id: 'coin_100', title: 'Starter Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', pkr: 'PKR 560' },
-      { id: 'coin_300', title: 'Pro Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', pkr: 'PKR 1120' },
-      { id: 'coin_800', title: 'Mega Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', pkr: 'PKR 2800' },
-      { id: 'coin_1500', title: 'Ultra Pack', tag: 'Ultra', main: '1500 Coins', bonus: 'Bonus: +180', total: 'Total: 1680', pkr: 'PKR 5040' },
-      { id: 'coin_2500', title: 'Max Pack', tag: 'Max', main: '2500 Coins', bonus: 'Bonus: +300', total: 'Total: 2800', pkr: 'PKR 8400' }
-    ];
-
-    const currencyPackages = [
-      { id: 'currency_250', title: 'Base Pack', tag: 'Base', main: '250 Credits', bonus: 'Bonus: +0', total: 'Total: 250 Credits', pkr: 'PKR 280' },
-      { id: 'currency_500', title: 'Starter Pack', tag: 'Starter', main: '500 Credits', bonus: 'Bonus: +10', total: 'Total: 510 Credits', pkr: 'PKR 560' },
-      { id: 'currency_1500', title: 'Pro Pack', tag: 'Pro', main: '1500 Credits', bonus: 'Bonus: +50', total: 'Total: 1550 Credits', pkr: 'PKR 1120' },
-      { id: 'currency_4000', title: 'Mega Pack', tag: 'Mega', main: '4000 Credits', bonus: 'Bonus: +150', total: 'Total: 4150 Credits', pkr: 'PKR 2800' },
-      { id: 'currency_7500', title: 'Ultra Pack', tag: 'Ultra', main: '7500 Credits', bonus: 'Bonus: +300', total: 'Total: 7800 Credits', pkr: 'PKR 5040' },
-      { id: 'currency_12500', title: 'Max Pack', tag: 'Max', main: '12500 Credits', bonus: 'Bonus: +500', total: 'Total: 13000 Credits', pkr: 'PKR 8400' }
-    ];
-
-    window.addEventListener('DOMContentLoaded', () => {
-      renderPackages();
-      const savedUser = localStorage.getItem('geni_user');
-      if (savedUser) {
-        currentUser = JSON.parse(savedUser);
-        showUser(currentUser);
-      }
-    });
-
-    function renderPackages() {
-      const coinHTML = coinPackages.map(p => `
-        <div class="package-card">
-          <div class="pkg-left">
-            <div class="pkg-title">${p.title}</div>
-            <div class="pkg-tag">${p.tag}</div>
-            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
-          </div>
-          <div class="pkg-right">
-            <div class="pkg-price-pkr">${p.pkr}</div>
-            <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
-          </div>
-        </div>
-      `).join('');
-
-      const currencyHTML = currencyPackages.map(p => `
-        <div class="package-card">
-          <div class="pkg-left">
-            <div class="pkg-title">${p.title}</div>
-            <div class="pkg-tag">${p.tag}</div>
-            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
-          </div>
-          <div class="pkg-right">
-            <div class="pkg-price-pkr">${p.pkr}</div>
-            <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
-          </div>
-        </div>
-      `).join('');
-
-      document.getElementById('coins-container').innerHTML = coinHTML;
-      document.getElementById('currency-container').innerHTML = currencyHTML;
-    }
-
-    function showModal(message) {
-      document.getElementById('modal-message').innerText = message;
-      document.getElementById('custom-modal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('custom-modal').classList.add('hidden');
-    }
-
-    // Decoding Google JWT Token locally to extract basic profile info immediately
-    function parseJwt(token) {
-      try {
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-      } catch (e) {
-        return null;
-      }
-    }
-
-    async function handleLogin(response) {
-      try {
-        const idToken = response.credential;
+    try {
+      // 1. Web Authentication Endpoint
+      if (url.pathname === '/handleWebAuth' && request.method === 'POST') {
+        const body = await request.json();
         
-        // Step 1: Immediately decode token & show Google profile details on screen
-        const googleData = parseJwt(idToken);
-        if (googleData) {
-          document.getElementById('auth-area').classList.add('hidden');
-          document.getElementById('user-box').classList.remove('hidden');
-          document.getElementById('u-name').innerText = googleData.name || 'Google User';
-          document.getElementById('u-email').innerText = googleData.email || '';
-          document.getElementById('u-id').innerText = 'Google ID: ' + (googleData.sub || '');
-          if (googleData.picture) {
-            document.getElementById('u-avatar').src = googleData.picture;
+        const googleUser = await verifyWebGoogleToken(
+          body?.idToken,
+          [env.GOOGLE_CLIENT_ID, env.GOOGLE_WEB_CLIENT_ID]
+        );
+
+        const user = await env.DB.prepare(`
+          SELECT
+            user_id,
+            email,
+            name,
+            photo_url,
+            coins,
+            currency_balance,
+            is_deleted
+          FROM users
+          WHERE user_id = ?
+          LIMIT 1
+        `).bind(googleUser.userId).first();
+
+        if (!user) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              app_required: true,
+              message: 'Please log in to the Geni AI app first.'
+            }),
+            {
+              status: 404,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+
+        if (user.is_deleted) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              message: 'This Geni AI account is no longer available.'
+            }),
+            {
+              status: 403,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            user: {
+              user_id: user.user_id,
+              email: user.email,
+              name: user.name,
+              photo_url: user.photo_url,
+              coins: user.coins ?? 0,
+              currency_balance: user.currency_balance ?? 0
+            }
+          }),
+          {
+            status: 200,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
           }
-        }
-
-        // Step 2: Now call the worker to sync/fetch full account state from backend
-        const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken: idToken })
-        });
-        const data = await res.json();
-        
-        if (data.success) {
-          currentUser = data.user;
-          localStorage.setItem('geni_user', JSON.stringify(currentUser));
-          showUser(currentUser); // Update with backend data (coins, credits, user_id)
-        } else {
-          showModal(data.message || 'Backend authentication failed.');
-        }
-      } catch (e) {
-        showModal('Connection error occurred while contacting worker.');
-      }
-    }
-
-    function showUser(user) {
-      document.getElementById('auth-area').classList.add('hidden');
-      document.getElementById('user-box').classList.remove('hidden');
-      if (user.name) document.getElementById('u-name').innerText = user.name;
-      if (user.email) document.getElementById('u-email').innerText = user.email;
-      if (user.user_id) document.getElementById('u-id').innerText = 'ID: ' + user.user_id;
-      if (user.picture) document.getElementById('u-avatar').src = user.picture;
-      document.getElementById('u-coins').innerText = user.coins ?? 0;
-      document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
-    }
-
-    async function buyPackage(packageId) {
-      if (!currentUser) {
-        showModal('Please log in with Google first to purchase packages.');
-        return;
+        );
       }
 
-      try {
-        const res = await fetch(`${WORKER_URL}/create-checkout`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId: currentUser.user_id,
-            packageId: packageId,
-            currency: 'PKR'
-          })
-        });
-        const data = await res.json();
-        if (data.success && data.checkout_url) {
-          window.location.href = data.checkout_url;
-        } else {
-          showModal(data.message || 'Failed to create checkout session.');
+      // 2. Create Checkout & Database User Existence Validation Endpoint
+      if (url.pathname === '/create-checkout' && request.method === 'POST') {
+        const body = await request.json();
+        const { userId, packageId, currency } = body;
+
+        if (!userId || !packageId) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              message: 'Missing userId or packageId'
+            }),
+            {
+              status: 400,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
         }
-      } catch (e) {
-        showModal('Could not connect to payment gateway.');
+
+        // ورکر کا اصل کام: سب سے پہلے ڈیٹا بیس میں چیک کرو کہ یوزر موجود ہے یا نہیں!
+        const userCheck = await env.DB.prepare(`
+          SELECT user_id, is_deleted 
+          FROM users 
+          WHERE user_id = ? 
+          LIMIT 1
+        `).bind(userId).first();
+
+        if (!userCheck || userCheck.is_deleted) {
+          return new Response(
+            JSON.stringify({
+              success: false,
+              app_required: true,
+              message: 'Please log in to the Geni AI app first before purchasing packages.'
+            }),
+            {
+              status: 404,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
+        }
+
+        // اگر یوزر موجود ہے، تو ورکر خود آگے پیمنٹ گیٹ وے (Rapid Gateway / RoPay) کا چیک آؤٹ لنک بنائے گا
+        // (یہاں آپ اپنے پیمنٹ گیٹ وے کا اصل API کال کا کوڈ یا ٹیسٹ لنک سیٹ کر سکتے ہیں)
+        const orderId = `#ORDER_${packageId}_${userId}_${Date.now()}`;
+        const checkoutUrl = `https://gateway.rapid-gateway.com/checkout?order=${orderId}&package=${packageId}`;
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            checkout_url: checkoutUrl
+          }),
+          {
+            status: 200,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          }
+        );
       }
+
+      return new Response(
+        JSON.stringify({ success: false, message: 'Endpoint not found' }),
+        {
+          status: 404,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
+
+    } catch (error) {
+      console.log('Worker error:', error);
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: 'Internal server error occurred.'
+        }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        }
+      );
     }
-  </script>
-</body>
-</html>
+  }
+};
