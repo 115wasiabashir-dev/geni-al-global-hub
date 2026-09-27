@@ -18,44 +18,21 @@ const CURRENCY_PACKAGES = [
 
 function renderPackages(containerId, packages, type) {
   const container = document.getElementById(containerId);
-
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   container.innerHTML = packages.map((pkg) => `
     <article class="package-card">
       <h3>${pkg.total} ${type}</h3>
-
-      <div class="amount">
-        ${pkg.amount}
-      </div>
-
-      <div class="bonus">
-        ${pkg.bonus > 0 ? `+${pkg.bonus} Bonus` : 'No Bonus'}
-      </div>
-
-      <div class="price">
-        $${pkg.price_usd.toFixed(2)}
-        <span>/ PKR ${pkg.price_pkr}</span>
-      </div>
-
-      <button
-        type="button"
-        data-package-id="${pkg.id}"
-        data-currency="PKR"
-      >
-        Purchase
-      </button>
+      <div class="amount">${pkg.amount}</div>
+      <div class="bonus">\( {pkg.bonus > 0 ? `+ \){pkg.bonus} Bonus` : 'No Bonus'}</div>
+      <div class="price">$${pkg.price_usd.toFixed(2)} <span>/ PKR ${pkg.price_pkr}</span></div>
+      <button type="button" data-package-id="${pkg.id}" data-currency="PKR">Purchase</button>
     </article>
   `).join('');
 
   container.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', () => {
-      createCheckout(
-        button.dataset.packageId,
-        button.dataset.currency
-      );
+      createCheckout(button.dataset.packageId, button.dataset.currency);
     });
   });
 }
@@ -71,16 +48,10 @@ async function createCheckout(packageId, currency) {
   setPaymentMessage('Creating checkout...');
 
   try {
-    const result = await createWebCheckout(
-      userId,
-      packageId,
-      currency
-    );
+    const result = await createWebCheckout(userId, packageId, currency);
 
     if (!result.success || !result.checkout_url) {
-      throw new Error(
-        result.message || 'Unable to create checkout.'
-      );
+      throw new Error(result.message || 'Unable to create checkout.');
     }
 
     window.location.href = result.checkout_url;
@@ -90,67 +61,41 @@ async function createCheckout(packageId, currency) {
 }
 
 function setPaymentMessage(message) {
-  const element = document.getElementById('payment-message');
-
-  if (element) {
-    element.textContent = message;
-  }
+  const el = document.getElementById('payment-message');
+  if (el) el.textContent = message;
 }
 
 function loadStoreUser() {
   const userId = localStorage.getItem('geni_user_id');
 
+  const nameEl = document.getElementById('user-name');
+  const emailEl = document.getElementById('user-email');
+  const coinEl = document.getElementById('coin-balance');
+  const currencyEl = document.getElementById('currency-balance');
+
   if (!userId) {
+    if (nameEl) nameEl.textContent = 'Not signed in';
     return;
   }
 
-  const nameElement = document.getElementById('user-name');
-  const emailElement = document.getElementById('user-email');
-  const coinBalance = document.getElementById('coin-balance');
-  const currencyBalance = document.getElementById('currency-balance');
-
-  if (nameElement) {
-    nameElement.textContent = userId;
-  }
-
-  if (emailElement) {
-    emailElement.textContent = 'Active Session';
-  }
-
-  if (coinBalance) {
-    coinBalance.textContent =
-      localStorage.getItem('geni_coins') || '0';
-  }
-
-  if (currencyBalance) {
-    currencyBalance.textContent =
-      localStorage.getItem('geni_currency') || '0';
-  }
+  if (nameEl) nameEl.textContent = userId;
+  if (emailEl) emailEl.textContent = 'Active Session';
+  if (coinEl) coinEl.textContent = localStorage.getItem('geni_coins') || '0';
+  if (currencyEl) currencyEl.textContent = localStorage.getItem('geni_currency') || '0';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderPackages(
-    'coin-packages',
-    COIN_PACKAGES,
-    'Coins'
-  );
-
-  renderPackages(
-    'currency-packages',
-    CURRENCY_PACKAGES,
-    'Currency'
-  );
-
+  renderPackages('coin-packages', COIN_PACKAGES, 'Coins');
+  renderPackages('currency-packages', CURRENCY_PACKAGES, 'Currency');
   loadStoreUser();
 
-  const logoutButton =
-    document.getElementById('logout-button');
-
-  if (logoutButton) {
-    logoutButton.addEventListener('click', () => {
+  const logoutBtn = document.getElementById('logout-button');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('geni_user_id');
       localStorage.removeItem('geni_coins');
       localStorage.removeItem('geni_currency');
+      localStorage.removeItem('geni_ai_user');
       window.location.href = 'login.html';
     });
   }
