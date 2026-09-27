@@ -145,6 +145,46 @@
     .buy-btn:hover {
       background: #e2e8f0;
     }
+
+    /* Custom Modern Modal Popup */
+    #custom-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 20px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .modal-text {
+      font-size: 14px;
+      color: #f8fafc;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .modal-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .modal-btn:hover {
+      background: #4f46e5;
+    }
   </style>
 </head>
 <body>
@@ -182,6 +222,14 @@
     <div>
       <div class="column-title">Currency</div>
       <div id="currency-container"></div>
+    </div>
+  </div>
+
+  <!-- Custom Popup Modal (Hidden by default) -->
+  <div id="custom-modal" class="hidden">
+    <div class="modal-content">
+      <div id="modal-message" class="modal-text">Please log in with Google first.</div>
+      <button class="modal-btn" onclick="closeModal()">OK</button>
     </div>
   </div>
 
@@ -249,6 +297,15 @@
       document.getElementById('currency-container').innerHTML = currencyHTML;
     }
 
+    function showModal(message) {
+      document.getElementById('modal-message').innerText = message;
+      document.getElementById('custom-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
+    }
+
     async function handleLogin(response) {
       try {
         const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
@@ -262,10 +319,10 @@
           localStorage.setItem('geni_user', JSON.stringify(currentUser));
           showUser(currentUser);
         } else {
-          alert(data.message || 'Login failed.');
+          showModal(data.message || 'Login failed.');
         }
       } catch (e) {
-        alert('Connection error occurred.');
+        showModal('Connection error occurred.');
       }
     }
 
@@ -279,7 +336,7 @@
 
     async function buyPackage(packageId) {
       if (!currentUser) {
-        alert('Please log in with Google first.');
+        showModal('Please log in with Google first to purchase packages.');
         return;
       }
 
@@ -297,10 +354,10 @@
         if (data.success && data.checkout_url) {
           window.location.href = data.checkout_url;
         } else {
-          alert(data.message || 'Failed to create checkout session.');
+          showModal(data.message || 'Failed to create checkout session.');
         }
       } catch (e) {
-        alert('Could not connect to payment gateway.');
+        showModal('Could not connect to payment gateway.');
       }
     }
   </script>
