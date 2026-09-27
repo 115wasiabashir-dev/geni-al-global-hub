@@ -42,13 +42,41 @@
     .user-info {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 12px 15px;
+      border-radius: 12px;
       font-size: 13px;
       margin-bottom: 15px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .user-profile-row {
+      display: flex;
       align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #38bdf8;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .user-stats-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      margin-top: 4px;
     }
 
     .hidden { display: none !important; }
@@ -192,7 +220,6 @@
   <div class="header-container">
     <h1>🛒 Store</h1>
     <div id="auth-area">
-      <!-- Updated with your new Google Client ID -->
       <div id="g_id_onload"
          data-client_id="677647126746-prug504v3o3as4moue8smkprtaptprm4.apps.googleusercontent.com"
          data-callback="handleLogin"
@@ -202,9 +229,20 @@
     </div>
   </div>
 
+  <!-- User Profile & Info Box (Initially Hidden, shown after login) -->
   <div id="user-box" class="user-info hidden">
-    <div>Welcome, <span id="u-name" style="font-weight: bold; color: #38bdf8;"></span></div>
-    <div>Coins: <span id="u-coins">0</span> | Credits: <span id="u-credits">0</span></div>
+    <div class="user-profile-row">
+      <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
+      <div class="user-details">
+        <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
+        <div><b>Email:</b> <span id="u-email" style="color: var(--text-muted); font-size: 11px;"></span></div>
+        <div><b>User ID:</b> <span id="u-id" style="color: var(--text-muted); font-size: 10px;"></span></div>
+      </div>
+    </div>
+    <div class="user-stats-row">
+      <div>Coins: <span id="u-coins" style="font-weight: bold; color: #4ade80;">0</span></div>
+      <div>Credits: <span id="u-credits" style="font-weight: bold; color: #facc15;">0</span></div>
+    </div>
   </div>
 
   <!-- Instruction Banner -->
@@ -307,32 +345,66 @@
       document.getElementById('custom-modal').classList.add('hidden');
     }
 
+    // Decoding Google JWT Token locally to extract basic profile info immediately
+    function parseJwt(token) {
+      try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
+      }
+    }
+
     async function handleLogin(response) {
       try {
+        const idToken = response.credential;
+        
+        // Step 1: Immediately decode token & show Google profile details on screen
+        const googleData = parseJwt(idToken);
+        if (googleData) {
+          document.getElementById('auth-area').classList.add('hidden');
+          document.getElementById('user-box').classList.remove('hidden');
+          document.getElementById('u-name').innerText = googleData.name || 'Google User';
+          document.getElementById('u-email').innerText = googleData.email || '';
+          document.getElementById('u-id').innerText = 'Google ID: ' + (googleData.sub || '');
+          if (googleData.picture) {
+            document.getElementById('u-avatar').src = googleData.picture;
+          }
+        }
+
+        // Step 2: Now call the worker to sync/fetch full account state from backend
         const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken: response.credential })
+          body: JSON.stringify({ idToken: idToken })
         });
         const data = await res.json();
+        
         if (data.success) {
           currentUser = data.user;
           localStorage.setItem('geni_user', JSON.stringify(currentUser));
-          showUser(currentUser);
+          showUser(currentUser); // Update with backend data (coins, credits, user_id)
         } else {
-          showModal(data.message || 'Login failed.');
+          showModal(data.message || 'Backend authentication failed.');
         }
       } catch (e) {
-        showModal('Connection error occurred.');
+        showModal('Connection error occurred while contacting worker.');
       }
     }
 
     function showUser(user) {
       document.getElementById('auth-area').classList.add('hidden');
       document.getElementById('user-box').classList.remove('hidden');
-      document.getElementById('u-name').innerText = user.name;
-      document.getElementById('u-coins').innerText = user.coins;
-      document.getElementById('u-credits').innerText = user.currency_balance;
+      if (user.name) document.getElementById('u-name').innerText = user.name;
+      if (user.email) document.getElementById('u-email').innerText = user.email;
+      if (user.user_id) document.getElementById('u-id').innerText = 'ID: ' + user.user_id;
+      if (user.picture) document.getElementById('u-avatar').src = user.picture;
+      document.getElementById('u-coins').innerText = user.coins ?? 0;
+      document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
     }
 
     async function buyPackage(packageId) {
