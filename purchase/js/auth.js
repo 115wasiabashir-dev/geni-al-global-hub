@@ -19,7 +19,9 @@ function loadGoogleScript() {
     script.defer = true;
 
     script.onload = resolve;
-    script.onerror = () => reject(new Error('Google Sign-In failed to load.'));
+    script.onerror = () => {
+      reject(new Error('Google Sign-In failed to load.'));
+    };
 
     document.head.appendChild(script);
   });
@@ -34,24 +36,33 @@ async function initializeGoogleLogin() {
       callback: handleGoogleCredential,
     });
 
-    const button = document.getElementById('google-login-button');
-
-    if (button) {
-      button.addEventListener('click', () => {
-        google.accounts.id.prompt();
-      });
-    }
-
-    const mainLoginButton = document.getElementById('login-button');
-
-    if (mainLoginButton) {
-      mainLoginButton.addEventListener('click', () => {
-        google.accounts.id.prompt();
-      });
-    }
+    renderGoogleButton('google-login-button');
+    renderGoogleButton('login-button');
   } catch (error) {
     showLoginMessage(error.message);
   }
+}
+
+function renderGoogleButton(elementId) {
+  const element = document.getElementById(elementId);
+
+  if (!element) {
+    return;
+  }
+
+  const container = document.createElement('div');
+  container.id = `${elementId}-container`;
+
+  element.replaceWith(container);
+
+  google.accounts.id.renderButton(container, {
+    type: 'standard',
+    theme: 'filled_black',
+    size: 'large',
+    text: 'continue_with',
+    shape: 'rectangular',
+    width: 300,
+  });
 }
 
 async function handleGoogleCredential(response) {
@@ -76,7 +87,9 @@ async function handleGoogleCredential(response) {
     const data = await result.json();
 
     if (!result.ok || !data.success) {
-      throw new Error(data.message || data.error || 'Login failed.');
+      throw new Error(
+        data.message || data.error || 'Login failed.'
+      );
     }
 
     currentUser = data.user;
@@ -119,7 +132,7 @@ function getCurrentUser() {
 function logoutUser() {
   currentUser = null;
   localStorage.removeItem('geni_ai_user');
-  window.location.href = 'login.html';
+  window.location.href = 'index.html';
 }
 
 function showLoginMessage(message) {
