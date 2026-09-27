@@ -14,18 +14,16 @@
         <h1>Geni AI Store</h1>
         <p>Choose a package to continue</p>
       </div>
-
-      <button id="logout-button" type="button">
-        Logout
-      </button>
+      <button id="logout-button" type="button">Logout</button>
     </header>
 
     <section class="account-section">
       <div>
-        <span class="label">Signed in as</span>
-        <strong id="user-name">Loading...</strong>
+        <span class="label">Account</span>
+        <strong id="user-name">Not signed in</strong>
         <span id="user-email"></span>
       </div>
+      <button id="login-button" type="button">Continue with Google</button>
     </section>
 
     <section class="balance-section">
@@ -33,20 +31,17 @@
         <span>Coins</span>
         <strong id="coin-balance">0</strong>
       </div>
-
       <div class="balance-card">
-        <span>Credits</span>
+        <span>Currency</span>
         <strong id="currency-balance">0</strong>
       </div>
     </section>
 
     <section class="packages-section">
       <h2>Coin Packages</h2>
-
       <div id="coin-packages" class="packages-grid"></div>
 
-      <h2>Credit Packages</h2>
-
+      <h2>Currency Packages</h2>
       <div id="currency-packages" class="packages-grid"></div>
     </section>
 
