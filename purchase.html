@@ -81,7 +81,6 @@
 
     .hidden { display: none !important; }
 
-    /* Side-by-side layout */
     .store-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -174,7 +173,6 @@
       background: #e2e8f0;
     }
 
-    /* Custom Modern Modal Popup */
     #custom-modal {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -229,7 +227,6 @@
     </div>
   </div>
 
-  <!-- User Profile & Info Box (Initially Hidden, shown after login) -->
   <div id="user-box" class="user-info hidden">
     <div class="user-profile-row">
       <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
@@ -245,26 +242,21 @@
     </div>
   </div>
 
-  <!-- Instruction Banner -->
   <div style="background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">
     💡 <b>Note:</b> Please make sure you are logged in with Google first. If you are using the mobile app, you can also log in directly by downloading and opening the app.
   </div>
 
   <div class="store-grid">
-    <!-- Coins Column -->
     <div>
       <div class="column-title">Coins</div>
       <div id="coins-container"></div>
     </div>
-
-    <!-- Currency Column -->
     <div>
       <div class="column-title">Currency</div>
       <div id="currency-container"></div>
     </div>
   </div>
 
-  <!-- Custom Popup Modal (Hidden by default) -->
   <div id="custom-modal" class="hidden">
     <div class="modal-content">
       <div id="modal-message" class="modal-text">Please log in with Google first.</div>
@@ -298,8 +290,15 @@
       renderPackages();
       const savedUser = localStorage.getItem('geni_user');
       if (savedUser) {
-        currentUser = JSON.parse(savedUser);
-        showUser(currentUser);
+        try {
+          currentUser = JSON.parse(savedUser);
+          if (!currentUser.user_id && currentUser.userId) {
+            currentUser.user_id = currentUser.userId;
+          }
+          showUser(currentUser);
+        } catch (e) {
+          console.error(e);
+        }
       }
     });
 
@@ -345,7 +344,6 @@
       document.getElementById('custom-modal').classList.add('hidden');
     }
 
-    // Decoding Google JWT Token locally to extract basic profile info immediately
     function parseJwt(token) {
       try {
         const base64Url = token.split('.')[1];
@@ -362,8 +360,6 @@
     async function handleLogin(response) {
       try {
         const idToken = response.credential;
-
-        // Step 1: Immediately decode token & show Google profile details on screen
         const googleData = parseJwt(idToken);
         if (googleData) {
           document.getElementById('auth-area').classList.add('hidden');
@@ -376,7 +372,6 @@
           }
         }
 
-        // Step 2: Now call the worker to sync/fetch full account state from backend
         const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -387,7 +382,7 @@
         if (data.success) {
           currentUser = data.user;
           localStorage.setItem('geni_user', JSON.stringify(currentUser));
-          showUser(currentUser); // Update with backend data (coins, credits, user_id)
+          showUser(currentUser);
         } else {
           showModal(data.message || 'Backend authentication failed.');
         }
@@ -401,14 +396,21 @@
       document.getElementById('user-box').classList.remove('hidden');
       if (user.name) document.getElementById('u-name').innerText = user.name;
       if (user.email) document.getElementById('u-email').innerText = user.email;
-      if (user.user_id) document.getElementById('u-id').innerText = 'ID: ' + user.user_id;
+      
+      const actualId = user.user_id || user.userId;
+      if (actualId) {
+        if (!currentUser) currentUser = {};
+        currentUser.user_id = actualId;
+        document.getElementById('u-id').innerText = 'ID: ' + actualId;
+      }
+      
       if (user.picture) document.getElementById('u-avatar').src = user.picture;
       document.getElementById('u-coins').innerText = user.coins ?? 0;
       document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
     }
 
     async function buyPackage(packageId) {
-      if (!currentUser) {
+      if (!currentUser || !currentUser.user_id) {
         showModal('Please log in with Google first to purchase packages.');
         return;
       }
