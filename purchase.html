@@ -238,7 +238,7 @@
     </div>
     <div class="user-stats-row">
       <div>Coins: <span id="u-coins" style="font-weight: bold; color: #4ade80;">0</span></div>
-      <div>Credits: <span id="u-credits" style="font-weight: bold; color: #facc15;">0</span></div>
+      <div>Currency: <span id="u-credits" style="font-weight: bold; color: #facc15;">0</span></div>
     </div>
   </div>
 
@@ -292,9 +292,6 @@
       if (savedUser) {
         try {
           currentUser = JSON.parse(savedUser);
-          if (!currentUser.user_id && currentUser.userId) {
-            currentUser.user_id = currentUser.userId;
-          }
           showUser(currentUser);
         } catch (e) {
           console.error(e);
@@ -357,37 +354,26 @@
       }
     }
 
-    async function handleLogin(response) {
+    // لاگ ان کے وقت ورکر کو کوئی کال نہیں کی جاتی، صرف لوکل ڈیکোড کر کے یوزر سیشن سیو ہوتا ہے
+    function handleLogin(response) {
       try {
         const idToken = response.credential;
         const googleData = parseJwt(idToken);
         if (googleData) {
-          document.getElementById('auth-area').classList.add('hidden');
-          document.getElementById('user-box').classList.remove('hidden');
-          document.getElementById('u-name').innerText = googleData.name || 'Google User';
-          document.getElementById('u-email').innerText = googleData.email || '';
-          document.getElementById('u-id').innerText = 'Google ID: ' + (googleData.sub || '');
-          if (googleData.picture) {
-            document.getElementById('u-avatar').src = googleData.picture;
-          }
-        }
+          currentUser = {
+            user_id: googleData.sub,
+            name: googleData.name || 'Google User',
+            email: googleData.email || '',
+            picture: googleData.picture || '',
+            coins: 0,
+            currency_balance: 0
+          };
 
-        const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idToken: idToken })
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          currentUser = data.user;
           localStorage.setItem('geni_user', JSON.stringify(currentUser));
           showUser(currentUser);
-        } else {
-          showModal(data.message || 'Backend authentication failed.');
         }
       } catch (e) {
-        showModal('Connection error occurred while contacting worker.');
+        showModal('Failed to process login locally.');
       }
     }
 
@@ -396,19 +382,13 @@
       document.getElementById('user-box').classList.remove('hidden');
       if (user.name) document.getElementById('u-name').innerText = user.name;
       if (user.email) document.getElementById('u-email').innerText = user.email;
-      
-      const actualId = user.user_id || user.userId;
-      if (actualId) {
-        if (!currentUser) currentUser = {};
-        currentUser.user_id = actualId;
-        document.getElementById('u-id').innerText = 'ID: ' + actualId;
-      }
-      
+      if (user.user_id) document.getElementById('u-id').innerText = 'ID: ' + user.user_id;
       if (user.picture) document.getElementById('u-avatar').src = user.picture;
       document.getElementById('u-coins').innerText = user.coins ?? 0;
       document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
     }
 
+    // ورکر کو ریکویسٹ صرف اور صرف اس وقت جاتی ہے جب یوزر پیکج کے "Buy" بٹن پر کلک کرتا ہے
     async function buyPackage(packageId) {
       if (!currentUser || !currentUser.user_id) {
         showModal('Please log in with Google first to purchase packages.');
