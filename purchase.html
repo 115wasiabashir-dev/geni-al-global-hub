@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geni AI - Purchase Store</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body { background: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; margin: 0; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #334155; }
+    h1 { font-size: 22px; color: #6366f1; margin: 0; }
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 16px; margin-bottom: 15px; text-align: center; }
+    .price { font-size: 20px; font-weight: bold; color: #38bdf8; margin: 10px 0; }
+    .btn { background: #6366f1; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .btn:hover { background: #4f46e5; }
+    .hidden { display: none !important; }
+    .user-info { background: #1e293b; padding: 12px 15px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #334155; }
+    .notice { text-align: center; margin-bottom: 20px; color: #94a3b8; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Geni AI Store</h1>
+    <div id="auth-area">
+      <div id="g_id_onload"
+         data-client_id="1021298502273-bdsucooa24a2pfdtckcicnq98o929jj2.apps.googleusercontent.com"
+         data-callback="handleLogin"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin" data-type="standard" data-shape="pill"></div>
+    </div>
+  </header>
+
+  <div id="user-box" class="user-info hidden">
+    <div>Welcome, <span id="u-name" style="font-weight: bold; color: #38bdf8;"></span></div>
+    <div>Coins: <span id="u-coins">0</span> | Credits: <span id="u-credits">0</span></div>
+  </div>
+
+  <div class="notice">All prices are shown in Pakistani Rupees (PKR) only.</div>
+
+  <!-- Packages List -->
+  <div id="packages-list">
+    <!-- Coin 50 -->
+    <div class="card">
+      <h3>50 Coins</h3>
+      <div class="price">Rs. 280</div>
+      <button class="btn" onclick="buyPackage('coin_50')">Buy Now</button>
+    </div>
+    <!-- Coin 100 -->
+    <div class="card">
+      <h3>110 Coins (+10 Bonus)</h3>
+      <div class="price">Rs. 560</div>
+      <button class="btn" onclick="buyPackage('coin_100')">Buy Now</button>
+    </div>
+    <!-- Coin 300 -->
+    <div class="card">
+      <h3>330 Coins (+30 Bonus)</h3>
+      <div class="price">Rs. 1,120</div>
+      <button class="btn" onclick="buyPackage('coin_300')">Buy Now</button>
+    </div>
+    <!-- Currency 250 -->
+    <div class="card">
+      <h3>250 Credits</h3>
+      <div class="price">Rs. 280</div>
+      <button class="btn" onclick="buyPackage('currency_250')">Buy Now</button>
+    </div>
+    <!-- Currency 500 -->
+    <div class="card">
+      <h3>510 Credits (+10 Bonus)</h3>
+      <div class="price">Rs. 560</div>
+      <button class="btn" onclick="buyPackage('currency_500')">Buy Now</button>
+    </div>
+  </div>
+
+  <script>
+    const WORKER_URL = 'https://geni-ai-backend.wasiabashir115.workers.dev';
+    let currentUser = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUser = localStorage.getItem('geni_user');
+      if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showUser(currentUser);
+      }
+    });
+
+    async function handleLogin(response) {
+      try {
+        const res = await fetch(`${WORKER_URL}/handleWebAuth`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken: response.credential })
+        });
+        const data = await res.json();
+        if (data.success) {
+          currentUser = data.user;
+          localStorage.setItem('geni_user', JSON.stringify(currentUser));
+          showUser(currentUser);
+        } else {
+          alert(data.message || 'Login failed.');
+        }
+      } catch (e) {
+        alert('Connection error occurred.');
+      }
+    }
+
+    function showUser(user) {
+      document.getElementById('auth-area').classList.add('hidden');
+      document.getElementById('user-box').classList.remove('hidden');
+      document.getElementById('u-name').innerText = user.name;
+      document.getElementById('u-coins').innerText = user.coins;
+      document.getElementById('u-credits').innerText = user.currency_balance;
+    }
+
+    async function buyPackage(packageId) {
+      if (!currentUser) {
+        alert('Please log in with Google first.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${WORKER_URL}/create-checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: currentUser.user_id,
+            packageId: packageId,
+            currency: 'PKR'
+          })
+        });
+        const data = await res.json();
+        if (data.success && data.checkout_url) {
+          window.location.href = data.checkout_url;
+        } else {
+          alert(data.message || 'Failed to create checkout session.');
+        }
+      } catch (e) {
+        alert('Could not connect to payment gateway.');
+      }
+    }
+  </script>
+</body>
+</html>
