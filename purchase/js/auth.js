@@ -17,12 +17,8 @@ function loadGoogleScript() {
     script.src = 'https://accounts.google.com/gsi/client';
     script.async = true;
     script.defer = true;
-
     script.onload = resolve;
-    script.onerror = () => {
-      reject(new Error('Google Sign-In failed to load.'));
-    };
-
+    script.onerror = () => reject(new Error('Google Sign-In failed to load.'));
     document.head.appendChild(script);
   });
 }
@@ -45,14 +41,10 @@ async function initializeGoogleLogin() {
 
 function renderGoogleButton(elementId) {
   const element = document.getElementById(elementId);
-
-  if (!element) {
-    return;
-  }
+  if (!element) return;
 
   const container = document.createElement('div');
   container.id = `${elementId}-container`;
-
   element.replaceWith(container);
 
   google.accounts.id.renderButton(container, {
@@ -74,35 +66,40 @@ async function handleGoogleCredential(response) {
   try {
     showLoginMessage('Signing in...');
 
-    const result = await fetch(`${WORKER_URL}/api/auth`, {
+    const result = await fetch(WORKER_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         idToken: response.credential,
+        action: 'sync_user'
       }),
     });
 
     const data = await result.json();
 
-    if (!result.ok || !data.success) {
-      throw new Error(
-        data.message || data.error || 'Login failed.'
-      );
+    if (!result.ok || data.success === false) {
+      throw new Error(data.message || data.error || 'Login failed.');
     }
 
-    currentUser = data.user;
+    // ایک جیسی کیز سیو کرو جو store.js استعمال کرتا ہے
+    const userId = data.userId || data.user_id || data.user?.userId || '';
+    const coins = data.coins ?? data.coinBalance ?? 0;
+    const currency = data.currencyBalance ?? data.currency_balance ?? 0;
 
-    localStorage.setItem(
-      'geni_ai_user',
-      JSON.stringify(currentUser)
-    );
+    localStorage.setItem('geni_user_id', userId);
+    localStorage.setItem('geni_coins', String(coins));
+    localStorage.setItem('geni_currency', String(currency));
+
+    currentUser = { userId, coins, currency };
+    localStorage.setItem('geni_ai_user', JSON.stringify(currentUser));
 
     showLoginMessage('Login successful.');
 
     if (window.location.pathname.endsWith('/login.html')) {
       window.location.href = 'store.html';
+    } else {
+      // اگر سٹور پر ہی ہیں تو ری لوڈ
+      window.location.reload();
     }
   } catch (error) {
     showLoginMessage(error.message);
@@ -110,20 +107,15 @@ async function handleGoogleCredential(response) {
 }
 
 function getCurrentUser() {
-  if (currentUser) {
-    return currentUser;
-  }
+  if (currentUser) return currentUser;
 
-  const savedUser = localStorage.getItem('geni_ai_user');
-
-  if (!savedUser) {
-    return null;
-  }
+  const saved = localStorage.getItem('geni_ai_user');
+  if (!saved) return null;
 
   try {
-    currentUser = JSON.parse(savedUser);
+    currentUser = JSON.parse(saved);
     return currentUser;
-  } catch (_) {
+  } catch {
     localStorage.removeItem('geni_ai_user');
     return null;
   }
@@ -132,20 +124,15 @@ function getCurrentUser() {
 function logoutUser() {
   currentUser = null;
   localStorage.removeItem('geni_ai_user');
-  window.location.href = 'index.html';
+  localStorage.removeItem('geni_user_id');
+  localStorage.removeItem('geni_coins');
+  localStorage.removeItem('geni_currency');
+  window.location.href = 'login.html';
 }
 
 function showLoginMessage(message) {
-  const loginMessage = document.getElementById('login-message');
-  const paymentMessage = document.getElementById('payment-message');
-
-  if (loginMessage) {
-    loginMessage.textContent = message;
-  }
-
-  if (paymentMessage) {
-    paymentMessage.textContent = message;
-  }
+  const el = document.getElementById('login-message') || document.getElementById('payment-message');
+  if (el) el.textContent = message;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
