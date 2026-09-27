@@ -7,65 +7,284 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     :root {
-      --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
     }
-    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 10px; margin: 0; }
-    .header, .user-box { background: var(--card); border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .user-box { flex-direction: column; gap: 8px; align-items: stretch; font-size: 13px; }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 10px;
+      margin: 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0;
+      color: var(--text-main);
+    }
+
+    .user-info {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      border-radius: 12px;
+      font-size: 13px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .user-profile-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #38bdf8;
+    }
+
+    .user-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+    }
+
+    .user-stats-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
     .hidden { display: none !important; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .title { text-align: center; font-size: 14px; font-weight: bold; background: var(--card); border: 1px solid var(--border); padding: 6px; border-radius: 6px; margin-bottom: 8px; }
-    .card { background: #fff; color: #0f172a; border-radius: 8px; padding: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-    .right { background: #000; color: #fff; border-radius: 6px; padding: 6px; text-align: center; min-width: 70px; }
-    .buy-btn { background: #fff; color: #000; border: none; width: 100%; padding: 4px; border-radius: 4px; font-weight: bold; font-size: 10px; cursor: pointer; margin-top: 4px; }
-    /* Payment Overlay Modal */
-    #payment-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 9999; }
-    .modal-box { background: var(--card); border: 1px solid var(--border); width: 90%; max-width: 400px; height: 80%; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
-    .modal-header { padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); background: #0f172a; }
-    .close-modal-btn { background: #ef4444; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    #payment-iframe { width: 100%; height: 100%; border: none; background: white; }
+
+    .store-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .column-title {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text-main);
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .package-card {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pkg-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 55%;
+    }
+
+    .pkg-title {
+      font-weight: bold;
+      font-size: 12px;
+      color: #0f172a;
+    }
+
+    .pkg-tag {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      width: fit-content;
+      font-weight: 600;
+    }
+
+    .pkg-details {
+      font-size: 10px;
+      color: #475569;
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+
+    .pkg-right {
+      background: #000000;
+      color: #ffffff;
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      min-width: 75px;
+    }
+
+    .pkg-price-pkr {
+      font-size: 12px;
+      font-weight: bold;
+      color: #4ade80;
+      margin-bottom: 6px;
+    }
+
+    .buy-btn {
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      width: 100%;
+      padding: 4px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background: #e2e8f0;
+    }
+
+    #custom-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 20px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .modal-text {
+      font-size: 14px;
+      color: #f8fafc;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .modal-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .modal-btn:hover {
+      background: #4f46e5;
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1 style="font-size: 16px; margin: 0;">🛒 Store</h1>
+  <div class="header-container">
+    <h1>🛒 Store</h1>
     <div id="auth-area">
-      <div id="g_id_onload" data-client_id="677647126746-prug504v3o3as4moue8smkprtaptprm4.apps.googleusercontent.com" data-callback="handleLogin" data-auto_prompt="false"></div>
+      <div id="g_id_onload"
+         data-client_id="677647126746-prug504v3o3as4moue8smkprtaptprm4.apps.googleusercontent.com"
+         data-callback="handleLogin"
+         data-auto_prompt="false">
+      </div>
       <div class="g_id_signin" data-type="standard" data-shape="pill" data-size="medium"></div>
     </div>
   </div>
 
-  <div id="user-box" class="user-box hidden">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
-      <button onclick="handleLogout()" style="background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Logout</button>
+  <div id="user-box" class="user-info hidden">
+    <div class="user-profile-row">
+      <div class="user-left">
+        <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
+        <div class="user-details">
+          <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
+          <div><b>Email:</b> <span id="u-email" style="color: var(--text-muted); font-size: 11px;"></span></div>
+          <div><b>User ID:</b> <span id="u-id" style="color: var(--text-muted); font-size: 10px;"></span></div>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
     </div>
-    <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 6px;">
-      <div>Coins: <span id="u-coins" style="color: #4ade80; font-weight: bold;">0</span></div>
-      <div>Currency: <span id="u-credits" style="color: #facc15; font-weight: bold;">0</span></div>
+    <div class="user-stats-row">
+      <div>Coins: <span id="u-coins" style="font-weight: bold; color: #4ade80;">0</span></div>
+      <div>Currency: <span id="u-credits" style="font-weight: bold; color: #facc15;">0</span></div>
     </div>
   </div>
 
-  <div class="grid">
+  <div style="background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">
+    💡 <b>Note:</b> Please make sure you are logged in with Google first. If you are using the mobile app, you can also log in directly by downloading and opening the app.
+  </div>
+
+  <div class="store-grid">
     <div>
-      <div class="title">Coins</div>
+      <div class="column-title">Coins</div>
       <div id="coins-container"></div>
     </div>
     <div>
-      <div class="title">Currency</div>
+      <div class="column-title">Currency</div>
       <div id="currency-container"></div>
     </div>
   </div>
 
-  <!-- Payment Overlay Modal with Iframe -->
-  <div id="payment-modal" class="hidden">
-    <div class="modal-box">
-      <div class="modal-header">
-        <span style="font-size: 13px; font-weight: bold;">Complete Payment</span>
-        <button class="close-modal-btn" onclick="closePaymentModal()">✕ Close</button>
-      </div>
-      <iframe id="payment-iframe" src=""></iframe>
+  <div id="custom-modal" class="hidden">
+    <div class="modal-content">
+      <div id="modal-message" class="modal-text">Please log in with Google first.</div>
+      <button class="modal-btn" onclick="closeModal()">OK</button>
     </div>
   </div>
 
@@ -74,107 +293,172 @@
     let currentUser = null;
 
     const coinPackages = [
-      { id: 'coin_50', title: 'Base Pack', main: '50 Coins', total: '50', pkr: 'PKR 280' },
-      { id: 'coin_100', title: 'Starter Pack', main: '100 Coins', total: '110', pkr: 'PKR 560' },
-      { id: 'coin_300', title: 'Pro Pack', main: '300 Coins', total: '330', pkr: 'PKR 1120' },
-      { id: 'coin_800', title: 'Mega Pack', main: '800 Coins', total: '880', pkr: 'PKR 2800' },
-      { id: 'coin_1500', title: 'Ultra Pack', main: '1500 Coins', total: '1680', pkr: 'PKR 5040' },
-      { id: 'coin_2500', title: 'Max Pack', main: '2500 Coins', total: '2800', pkr: 'PKR 8400' }
+      { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 280' },
+      { id: 'coin_100', title: 'Starter Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', pkr: 'PKR 560' },
+      { id: 'coin_300', title: 'Pro Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', pkr: 'PKR 1120' },
+      { id: 'coin_800', title: 'Mega Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', pkr: 'PKR 2800' },
+      { id: 'coin_1500', title: 'Ultra Pack', tag: 'Ultra', main: '1500 Coins', bonus: 'Bonus: +180', total: 'Total: 1680', pkr: 'PKR 5040' },
+      { id: 'coin_2500', title: 'Max Pack', tag: 'Max', main: '2500 Coins', bonus: 'Bonus: +300', total: 'Total: 2800', pkr: 'PKR 8400' }
     ];
 
     const currencyPackages = [
-      { id: 'currency_250', title: 'Base Pack', main: '250 Credits', total: '250', pkr: 'PKR 280' },
-      { id: 'currency_500', title: 'Starter Pack', main: '500 Credits', total: '510', pkr: 'PKR 560' },
-      { id: 'currency_1500', title: 'Pro Pack', main: '1500 Credits', total: '1550', pkr: 'PKR 1120' },
-      { id: 'currency_4000', title: 'Mega Pack', main: '4000 Credits', total: '4150', pkr: 'PKR 2800' },
-      { id: 'currency_7500', title: 'Ultra Pack', main: '7500 Credits', total: '7800', pkr: 'PKR 5040' },
-      { id: 'currency_12500', title: 'Max Pack', main: '12500 Credits', total: '13000', pkr: 'PKR 8400' }
+      { id: 'currency_250', title: 'Base Pack', tag: 'Base', main: '250 Credits', bonus: 'Bonus: +0', total: 'Total: 250 Credits', pkr: 'PKR 280' },
+      { id: 'currency_500', title: 'Starter Pack', tag: 'Starter', main: '500 Credits', bonus: 'Bonus: +10', total: 'Total: 510 Credits', pkr: 'PKR 560' },
+      { id: 'currency_1500', title: 'Pro Pack', tag: 'Pro', main: '1500 Credits', bonus: 'Bonus: +50', total: 'Total: 1550 Credits', pkr: 'PKR 1120' },
+      { id: 'currency_4000', title: 'Mega Pack', tag: 'Mega', main: '4000 Credits', bonus: 'Bonus: +150', total: 'Total: 4150 Credits', pkr: 'PKR 2800' },
+      { id: 'currency_7500', title: 'Ultra Pack', tag: 'Ultra', main: '7500 Credits', bonus: 'Bonus: +300', total: 'Total: 7800 Credits', pkr: 'PKR 5040' },
+      { id: 'currency_12500', title: 'Max Pack', tag: 'Max', main: '12500 Credits', bonus: 'Bonus: +500', total: 'Total: 13000 Credits', pkr: 'PKR 8400' }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
       renderPackages();
-      const saved = localStorage.getItem('geni_user');
-      if (saved) {
-        currentUser = JSON.parse(saved);
-        showUser(currentUser);
+      const savedUser = localStorage.getItem('geni_user');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          showUser(currentUser);
+        } catch (e) {
+          console.error(e);
+        }
       }
     });
 
     function renderPackages() {
-      const render = (arr) => arr.map(p => `
-        <div class="card">
-          <div style="max-width: 55%;">
-            <div style="font-weight:bold; font-size:12px;">${p.title}</div>
-            <div style="font-size:10px; color:#475569;"><b>${p.main}</b><br>Total: ${p.total}</div>
+      const coinHTML = coinPackages.map(p => `
+        <div class="package-card">
+          <div class="pkg-left">
+            <div class="pkg-title">${p.title}</div>
+            <div class="pkg-tag">${p.tag}</div>
+            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
           </div>
-          <div class="right">
-            <div style="font-size:11px; font-weight:bold; color:#4ade80; margin-bottom:4px;">${p.pkr}</div>
+          <div class="pkg-right">
+            <div class="pkg-price-pkr">${p.pkr}</div>
             <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
           </div>
         </div>
       `).join('');
 
-      document.getElementById('coins-container').innerHTML = render(coinPackages);
-      document.getElementById('currency-container').innerHTML = render(currencyPackages);
+      const currencyHTML = currencyPackages.map(p => `
+        <div class="package-card">
+          <div class="pkg-left">
+            <div class="pkg-title">${p.title}</div>
+            <div class="pkg-tag">${p.tag}</div>
+            <div class="pkg-details"><b>${p.main}</b><br>${p.bonus}<br>${p.total}</div>
+          </div>
+          <div class="pkg-right">
+            <div class="pkg-price-pkr">${p.pkr}</div>
+            <button class="buy-btn" onclick="buyPackage('${p.id}')">Buy</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.getElementById('coins-container').innerHTML = coinHTML;
+      document.getElementById('currency-container').innerHTML = currencyHTML;
+    }
+
+    function showModal(message) {
+      document.getElementById('modal-message').innerText = message;
+      document.getElementById('custom-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.add('hidden');
     }
 
     function parseJwt(token) {
       try {
-        const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-        return JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-      } catch (e) { return null; }
-    }
-
-    function handleLogin(res) {
-      const data = parseJwt(res.credential);
-      if (data) {
-        currentUser = { user_id: data.sub, name: data.name, email: data.email, coins: 0, currency_balance: 0 };
-        localStorage.setItem('geni_user', JSON.stringify(currentUser));
-        showUser(currentUser);
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('0' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
       }
     }
 
-    function handleLogout() {
-      localStorage.clear();
-      if (typeof google !== 'undefined') google.accounts.id.disableAutoSelect();
-      window.location.replace(window.location.pathname);
+    function handleLogin(response) {
+      try {
+        const idToken = response.credential;
+        const googleData = parseJwt(idToken);
+        if (googleData) {
+          currentUser = {
+            user_id: googleData.sub,
+            name: googleData.name || 'Google User',
+            email: googleData.email || '',
+            picture: googleData.picture || '',
+            coins: 0,
+            currency_balance: 0
+          };
+
+          localStorage.setItem('geni_user', JSON.stringify(currentUser));
+          showUser(currentUser);
+        }
+      } catch (e) {
+        showModal('Failed to process login locally.');
+      }
     }
 
-    function showUser(u) {
+    // مکمل لاگ آؤٹ اور کیش ریسیٹ فنکشن
+    function handleLogout() {
+      // 1. لوکل اسٹوریج سے سارا ڈیٹا اڑا دیں
+      localStorage.clear();
+      currentUser = null;
+
+      // 2. گوگل سائن ان کا آٹو سلیکٹ اور سیشن ڈس ایبل کریں
+      try {
+        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+          google.accounts.id.disableAutoSelect();
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      // 3. UI کو چھپا دیں
+      document.getElementById('user-box').classList.add('hidden');
+      document.getElementById('auth-area').classList.remove('hidden');
+
+      // 4. براؤزر کے کیش کو بائی پاس کرتے ہوئے مکمل پیج ہارڈ رিলোڈ کریں
+      window.location.replace(window.location.pathname + '?nocache=' + new Date().getTime());
+    }
+
+    function showUser(user) {
       document.getElementById('auth-area').classList.add('hidden');
       document.getElementById('user-box').classList.remove('hidden');
-      document.getElementById('u-name').innerText = u.name;
-      document.getElementById('u-coins').innerText = u.coins ?? 0;
-      document.getElementById('u-credits').innerText = u.currency_balance ?? 0;
+      if (user.name) document.getElementById('u-name').innerText = user.name;
+      if (user.email) document.getElementById('u-email').innerText = user.email;
+      if (user.user_id) document.getElementById('u-id').innerText = 'ID: ' + user.user_id;
+      if (user.picture) document.getElementById('u-avatar').src = user.picture;
+      document.getElementById('u-coins').innerText = user.coins ?? 0;
+      document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
     }
 
     async function buyPackage(packageId) {
-      if (!currentUser) {
-        alert('Please log in first.');
+      if (!currentUser || !currentUser.user_id) {
+        showModal('Please log in with Google first to purchase packages.');
         return;
       }
+
       try {
         const res = await fetch(`${WORKER_URL}/create-checkout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId: currentUser.user_id, packageId, currency: 'PKR' })
+          body: JSON.stringify({
+            userId: currentUser.user_id,
+            packageId: packageId,
+            currency: 'PKR'
+          })
         });
         const data = await res.json();
         if (data.success && data.checkout_url) {
-          // Open inside iframe overlay instead of window.location.href
-          document.getElementById('payment-iframe').src = data.checkout_url;
-          document.getElementById('payment-modal').classList.remove('hidden');
+          window.location.href = data.checkout_url;
         } else {
-          alert(data.message || 'Failed to create checkout.');
+          showModal(data.message || 'Failed to create checkout session.');
         }
       } catch (e) {
-        alert('Connection error.');
+        showModal('Could not connect to payment gateway.');
       }
-    }
-
-    function closePaymentModal() {
-      document.getElementById('payment-modal').classList.add('hidden');
-      document.getElementById('payment-iframe').src = '';
     }
   </script>
 </body>
