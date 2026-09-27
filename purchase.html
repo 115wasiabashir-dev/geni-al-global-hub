@@ -54,6 +54,12 @@
     .user-profile-row {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-left {
+      display: flex;
+      align-items: center;
       gap: 12px;
     }
 
@@ -69,6 +75,21 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
     }
 
     .user-stats-row {
@@ -229,12 +250,15 @@
 
   <div id="user-box" class="user-info hidden">
     <div class="user-profile-row">
-      <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
-      <div class="user-details">
-        <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
-        <div><b>Email:</b> <span id="u-email" style="color: var(--text-muted); font-size: 11px;"></span></div>
-        <div><b>User ID:</b> <span id="u-id" style="color: var(--text-muted); font-size: 10px;"></span></div>
+      <div class="user-left">
+        <img id="u-avatar" src="" alt="Avatar" class="user-avatar" onerror="this.src='https://via.placeholder.com/40'">
+        <div class="user-details">
+          <div><b>Name:</b> <span id="u-name" style="color: #38bdf8;"></span></div>
+          <div><b>Email:</b> <span id="u-email" style="color: var(--text-muted); font-size: 11px;"></span></div>
+          <div><b>User ID:</b> <span id="u-id" style="color: var(--text-muted); font-size: 10px;"></span></div>
+        </div>
       </div>
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
     </div>
     <div class="user-stats-row">
       <div>Coins: <span id="u-coins" style="font-weight: bold; color: #4ade80;">0</span></div>
@@ -354,7 +378,6 @@
       }
     }
 
-    // لاگ ان کے وقت ورکر کو کوئی کال نہیں کی جاتی، صرف لوکل ڈیکোড کر کے یوزر سیشن سیو ہوتا ہے
     function handleLogin(response) {
       try {
         const idToken = response.credential;
@@ -377,6 +400,16 @@
       }
     }
 
+    // لاگ آؤٹ فنکشن جو لوکل سٹوریج صاف کر کے دوبارہ لاگ ان کا آپشن دے گا
+    function handleLogout() {
+      localStorage.removeItem('geni_user');
+      currentUser = null;
+      document.getElementById('user-box').classList.add('hidden');
+      document.getElementById('auth-area').classList.remove('hidden');
+      // گوگل سائن ان بٹن کو ری رینڈر کرنے کے لیے پیج ریفریش بھی کیا جا سکتا ہے
+      location.reload();
+    }
+
     function showUser(user) {
       document.getElementById('auth-area').classList.add('hidden');
       document.getElementById('user-box').classList.remove('hidden');
@@ -388,7 +421,6 @@
       document.getElementById('u-credits').innerText = user.currency_balance ?? 0;
     }
 
-    // ورکر کو ریکویسٹ صرف اور صرف اس وقت جاتی ہے جب یوزر پیکج کے "Buy" بٹن پر کلک کرتا ہے
     async function buyPackage(packageId) {
       if (!currentUser || !currentUser.user_id) {
         showModal('Please log in with Google first to purchase packages.');
