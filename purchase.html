@@ -267,7 +267,7 @@
   </div>
 
   <div style="background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 15px; line-height: 1.4;">
-    💡 <b>Note:</b> Please make sure you are logged in with Google first. If you are using the mobile app, you can also log in directly by downloading and opening the app.
+    💡 <b>Note:</b> If you want to make a purchase from here, you must first download the Geni AI app and log in using the same account.
   </div>
 
   <div class="store-grid">
@@ -293,7 +293,7 @@
     let currentUser = null;
 
     const coinPackages = [
-      { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 280' },
+      { id: 'coin_50', title: 'Base Pack', tag: 'Base', main: '50 Coins', bonus: 'Bonus: +0', total: 'Total: 50', pkr: 'PKR 20' },
       { id: 'coin_100', title: 'Starter Pack', tag: 'Starter', main: '100 Coins', bonus: 'Bonus: +10', total: 'Total: 110', pkr: 'PKR 560' },
       { id: 'coin_300', title: 'Pro Pack', tag: 'Pro', main: '300 Coins', bonus: 'Bonus: +30', total: 'Total: 330', pkr: 'PKR 1120' },
       { id: 'coin_800', title: 'Mega Pack', tag: 'Mega', main: '800 Coins', bonus: 'Bonus: +80', total: 'Total: 880', pkr: 'PKR 2800' },
@@ -400,13 +400,10 @@
       }
     }
 
-    // مکمل لاگ آؤٹ اور کیش ریسیٹ فنکشن
     function handleLogout() {
-      // 1. لوکل اسٹوریج سے سارا ڈیٹا اڑا دیں
       localStorage.clear();
       currentUser = null;
 
-      // 2. گوگل سائن ان کا آٹو سلیکٹ اور سیشن ڈس ایبل کریں
       try {
         if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
           google.accounts.id.disableAutoSelect();
@@ -415,11 +412,9 @@
         console.error(e);
       }
 
-      // 3. UI کو چھپا دیں
       document.getElementById('user-box').classList.add('hidden');
       document.getElementById('auth-area').classList.remove('hidden');
 
-      // 4. براؤزر کے کیش کو بائی پاس کرتے ہوئے مکمل پیج ہارڈ رিলোڈ کریں
       window.location.replace(window.location.pathname + '?nocache=' + new Date().getTime());
     }
 
